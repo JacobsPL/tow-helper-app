@@ -1,0 +1,17 @@
+target/
+tmp/
+data/
+.owb-source/
+
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+
+.idea/
+*.iml
+.env
+.env.*
+
+Thumbs.db
+.DS_Store

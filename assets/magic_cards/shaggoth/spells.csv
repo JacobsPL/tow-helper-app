@@ -1,0 +1,2 @@
+﻿lore,sequence,spell_number,spell_name,type,casting_value,range,flavour,effect,pdf_page,back_pdf_page,front_image,back_image
+SHAGGOTH,1,,Storm Call,Magic Missile,7+,Self,The oldest Dragon Ogres are able to summon storms and call lightning down from the heavens.,"If this Bound spell is cast, all units within 6” of this model (friend or foe), including units engaged in combat and this model, suffer D3 Strength 4 hits, each with an AP of -1.",211,212,shaggoth/01_storm_call.png,shaggoth/back.png

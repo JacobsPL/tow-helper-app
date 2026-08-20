@@ -1,0 +1,1670 @@
+{
+  "generatedAt": "2026-08-20T22:53:25.281Z",
+  "source": {
+    "oldWorldBuilder": "https://github.com/nthiebes/old-world-builder",
+    "marchOfChaosPdf": "Warhammer The Old World - March of Chaos Arcane Journal.pdf"
+  },
+  "factions": [
+    {
+      "id": "renegade-crowns",
+      "name": "Renegade Crowns",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "renegade-crowns-outcast-wizard",
+          "name": "Outcast Wizard",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "necromancy"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "renegade-crowns-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "renegade-crowns-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "empire-of-man",
+      "name": "Empire of Man",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "empire-of-man-master-mage",
+          "name": "Master Mage",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "empire-of-man-wizard-lord",
+          "name": "Wizard Lord",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "necromancy"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "empire-of-man-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "empire-of-man-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "orc-and-goblin-tribes",
+      "name": "Orc & Goblin Tribes",
+      "loreIds": [
+        "battle_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_gork",
+        "lore_of_mork",
+        "troll_magic",
+        "waaagh_magic"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_gork",
+        "lore_of_mork",
+        "troll_magic",
+        "waaagh_magic"
+      ],
+      "casterPresets": [
+        {
+          "id": "orc-and-goblin-tribes-goblin-oddgit",
+          "name": "Goblin Oddgit",
+          "defaultLevel": 1,
+          "loreIds": [
+            "elementalism",
+            "lore_of_mork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-goblin-oddnob",
+          "name": "Goblin Oddnob",
+          "defaultLevel": 3,
+          "loreIds": [
+            "elementalism",
+            "lore_of_mork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-night-goblin-oddgit",
+          "name": "Night Goblin Oddgit",
+          "defaultLevel": 1,
+          "loreIds": [
+            "illusion",
+            "lore_of_mork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-night-goblin-oddnob",
+          "name": "Night Goblin Oddnob",
+          "defaultLevel": 3,
+          "loreIds": [
+            "illusion",
+            "lore_of_mork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-ogdruz-swampdigga",
+          "name": "Ogdruz Swampdigga",
+          "defaultLevel": 3,
+          "loreIds": [
+            "elementalism",
+            "troll_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-orc-weirdboy",
+          "name": "Orc Weirdboy",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "lore_of_gork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-orc-weirdnob",
+          "name": "Orc Weirdnob",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "lore_of_gork",
+            "troll_magic",
+            "waaagh_magic"
+          ]
+        },
+        {
+          "id": "orc-and-goblin-tribes-troll-hag",
+          "name": "Troll Hag",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "troll_magic"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "orc-and-goblin-tribes-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "orc-and-goblin-tribes-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "dwarfen-mountain-holds",
+      "name": "Dwarfen Mountain Holds",
+      "loreIds": [],
+      "boundLoreIds": [
+        "anvil_of_doom"
+      ],
+      "casterPresets": [],
+      "boundSpellSources": [
+        {
+          "id": "dwarfen-mountain-holds-anvil-of-doom-strike-the-runes",
+          "name": "Anvil of Doom (Strike the Runes)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "anvil_of_doom"
+          ],
+          "spellId": "",
+          "powerLevel": 0
+        }
+      ]
+    },
+    {
+      "id": "warriors-of-chaos",
+      "name": "Warriors of Chaos",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_beasts",
+        "lore_of_chaos",
+        "lore_of_the_shadowlands"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_beasts",
+        "lore_of_chaos",
+        "lore_of_the_shadowlands",
+        "primal_magic"
+      ],
+      "casterPresets": [
+        {
+          "id": "warriors-of-chaos-bray-shaman",
+          "name": "Bray-Shaman",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_beasts"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-cult-magister",
+          "name": "Cult Magister",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "lore_of_chaos"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-daemon-prince",
+          "name": "Daemon Prince",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_chaos"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-exalted-sorcerer",
+          "name": "Exalted Sorcerer",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_chaos",
+            "lore_of_the_shadowlands"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-galrauch",
+          "name": "Galrauch",
+          "defaultLevel": 4,
+          "loreIds": [
+            "dark_magic"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-great-bray-shaman",
+          "name": "Great Bray-Shaman",
+          "defaultLevel": 3,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_beasts"
+          ]
+        },
+        {
+          "id": "warriors-of-chaos-sorcerer-lord",
+          "name": "Sorcerer Lord",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_chaos",
+            "lore_of_the_shadowlands"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "warriors-of-chaos-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "warriors-of-chaos-rod-of-the-damned",
+          "name": "Rod of the Damned",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "daemonology"
+          ],
+          "spellId": "daemonology/01_the_summoning.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "warriors-of-chaos-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "warriors-of-chaos-scourge-of-the-burdened",
+          "name": "Scourge of the Burdened",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "primal_magic"
+          ],
+          "spellId": "primal_magic/02_call_of_the_wild.png",
+          "powerLevel": 2
+        }
+      ]
+    },
+    {
+      "id": "kingdom-of-bretonnia",
+      "name": "Kingdom of Bretonnia",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_the_lady",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_the_lady",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "kingdom-of-bretonnia-damsel",
+          "name": "Damsel",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_the_lady"
+          ]
+        },
+        {
+          "id": "kingdom-of-bretonnia-lady-lisse-duachaard",
+          "name": "Lady Élisse Duchaard",
+          "defaultLevel": 3,
+          "loreIds": [
+            "elementalism",
+            "lore_of_the_lady"
+          ]
+        },
+        {
+          "id": "kingdom-of-bretonnia-outcast-wizard",
+          "name": "Outcast Wizard",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "kingdom-of-bretonnia-prophetess",
+          "name": "Prophetess",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_the_lady"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "kingdom-of-bretonnia-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "kingdom-of-bretonnia-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "beastmen-brayherds",
+      "name": "Beastmen Brayherds",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_beasts",
+        "primal_magic"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_beasts",
+        "primal_magic"
+      ],
+      "casterPresets": [
+        {
+          "id": "beastmen-brayherds-bray-shaman",
+          "name": "Bray-Shaman",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_beasts",
+            "primal_magic"
+          ]
+        },
+        {
+          "id": "beastmen-brayherds-doombull",
+          "name": "Doombull",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "dark_magic"
+          ]
+        },
+        {
+          "id": "beastmen-brayherds-gorebull",
+          "name": "Gorebull",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "dark_magic"
+          ]
+        },
+        {
+          "id": "beastmen-brayherds-great-bray-shaman",
+          "name": "Great Bray-Shaman",
+          "defaultLevel": 3,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_beasts",
+            "primal_magic"
+          ]
+        },
+        {
+          "id": "beastmen-brayherds-kralmaw",
+          "name": "Kralmaw",
+          "defaultLevel": 4,
+          "loreIds": [
+            "dark_magic",
+            "lore_of_beasts",
+            "primal_magic"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "beastmen-brayherds-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "beastmen-brayherds-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "beastmen-brayherds-scourge-of-the-burdened",
+          "name": "Scourge of the Burdened",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "primal_magic"
+          ],
+          "spellId": "primal_magic/02_call_of_the_wild.png",
+          "powerLevel": 2
+        }
+      ]
+    },
+    {
+      "id": "wood-elf-realms",
+      "name": "Wood Elf Realms",
+      "loreIds": [
+        "athel_loren",
+        "battle_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_the_wilds"
+      ],
+      "boundLoreIds": [
+        "athel_loren",
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_the_wilds"
+      ],
+      "casterPresets": [
+        {
+          "id": "wood-elf-realms-branchwraith",
+          "name": "Branchwraith",
+          "defaultLevel": 1,
+          "loreIds": [
+            "athel_loren",
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_the_wilds"
+          ]
+        },
+        {
+          "id": "wood-elf-realms-shadowdancer",
+          "name": "Shadowdancer",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "illusion",
+            "lore_of_the_wilds"
+          ]
+        },
+        {
+          "id": "wood-elf-realms-spellsinger",
+          "name": "Spellsinger",
+          "defaultLevel": 1,
+          "loreIds": [
+            "athel_loren",
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_the_wilds"
+          ]
+        },
+        {
+          "id": "wood-elf-realms-spellweaver",
+          "name": "Spellweaver",
+          "defaultLevel": 3,
+          "loreIds": [
+            "athel_loren",
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_the_wilds"
+          ]
+        },
+        {
+          "id": "wood-elf-realms-treeman-ancient",
+          "name": "Treeman Ancient",
+          "defaultLevel": 2,
+          "loreIds": [
+            "athel_loren",
+            "battle_magic",
+            "elementalism",
+            "lore_of_the_wilds"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "wood-elf-realms-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "wood-elf-realms-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "wood-elf-realms-sisters-of-the-thorn-bound",
+          "name": "Sisters of the Thorn (Deepwood Coven)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "battle_magic",
+            "elementalism"
+          ],
+          "spellId": "",
+          "powerLevel": 1
+        },
+        {
+          "id": "wood-elf-realms-standard-of-morning-s-chill",
+          "name": "Standard of Morning's Chill",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "lore_of_the_wilds"
+          ],
+          "spellId": "lore_of_the_wilds/01_swirling_mists.png",
+          "powerLevel": 2
+        }
+      ]
+    },
+    {
+      "id": "tomb-kings-of-khemri",
+      "name": "Tomb Kings of Khemri",
+      "loreIds": [
+        "elementalism",
+        "illusion",
+        "lore_of_nehekhara",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "casket_of_souls",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_nehekhara",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "tomb-kings-of-khemri-high-priest",
+          "name": "High Priest",
+          "defaultLevel": 3,
+          "loreIds": [
+            "elementalism",
+            "illusion",
+            "lore_of_nehekhara",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "tomb-kings-of-khemri-mortuary-priest",
+          "name": "Mortuary Priest",
+          "defaultLevel": 1,
+          "loreIds": [
+            "elementalism",
+            "illusion",
+            "lore_of_nehekhara",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "tomb-kings-of-khemri-settra-the-imperishable-the-great-king-of-nehekhara",
+          "name": "Settra the Imperishable",
+          "defaultLevel": 1,
+          "loreIds": [
+            "lore_of_nehekhara",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "tomb-kings-of-khemri-tomb-king",
+          "name": "Tomb King",
+          "defaultLevel": 1,
+          "loreIds": [
+            "necromancy"
+          ]
+        },
+        {
+          "id": "tomb-kings-of-khemri-tomb-prince",
+          "name": "Tomb Prince",
+          "defaultLevel": 1,
+          "loreIds": [
+            "necromancy"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "tomb-kings-of-khemri-casket-of-souls-vortex-of-souls",
+          "name": "Casket of Souls (Vortex of Souls)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "casket_of_souls"
+          ],
+          "spellId": "",
+          "powerLevel": 0
+        },
+        {
+          "id": "tomb-kings-of-khemri-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "tomb-kings-of-khemri-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "high-elf-realms",
+      "name": "High Elf Realms",
+      "loreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_saphery"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_saphery"
+      ],
+      "casterPresets": [
+        {
+          "id": "high-elf-realms-archmage",
+          "name": "Archmage",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_saphery"
+          ]
+        },
+        {
+          "id": "high-elf-realms-dragon-mage",
+          "name": "Dragon Mage",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "lore_of_saphery"
+          ]
+        },
+        {
+          "id": "high-elf-realms-mage",
+          "name": "Mage",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_saphery"
+          ]
+        },
+        {
+          "id": "high-elf-realms-storm-weaver",
+          "name": "Storm Weaver",
+          "defaultLevel": 1,
+          "loreIds": [
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_saphery"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "high-elf-realms-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "high-elf-realms-ring-of-fury",
+          "name": "Ring of Fury*",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/01_hammerhand.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "high-elf-realms-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "dark-elves",
+      "name": "Dark Elves",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_naggaroth"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_naggaroth"
+      ],
+      "casterPresets": [
+        {
+          "id": "dark-elves-sorceress",
+          "name": "Sorceress",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_naggaroth"
+          ]
+        },
+        {
+          "id": "dark-elves-supreme-sorceress",
+          "name": "Supreme Sorceress",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_naggaroth"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "dark-elves-doomfire-warlocks-bound",
+          "name": "Doomfire Warlocks (Cursed Coven)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "daemonology",
+            "dark_magic"
+          ],
+          "spellId": "",
+          "powerLevel": 1
+        },
+        {
+          "id": "dark-elves-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "dark-elves-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "skaven",
+      "name": "Skaven",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "the_horned_rat"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "the_horned_rat"
+      ],
+      "casterPresets": [
+        {
+          "id": "skaven-grey-seer",
+          "name": "Grey Seer",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "the_horned_rat"
+          ]
+        },
+        {
+          "id": "skaven-plague-priest",
+          "name": "Plague Priest",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "the_horned_rat"
+          ]
+        },
+        {
+          "id": "skaven-warlock-engineer",
+          "name": "Warlock Engineer",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "the_horned_rat"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "skaven-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "skaven-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "vampire-counts",
+      "name": "Vampire Counts",
+      "loreIds": [
+        "battle_magic",
+        "dark_magic",
+        "illusion",
+        "lore_of_undeath",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "illusion",
+        "lore_of_undeath",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "vampire-counts-master-necromancer",
+          "name": "Master Necromancer",
+          "defaultLevel": 3,
+          "loreIds": [
+            "dark_magic",
+            "illusion",
+            "lore_of_undeath",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "vampire-counts-necromantic-acolyte",
+          "name": "Necromantic Acolyte",
+          "defaultLevel": 1,
+          "loreIds": [
+            "dark_magic",
+            "illusion",
+            "lore_of_undeath",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "vampire-counts-strigoi-ghoul-king",
+          "name": "Strigoi Ghoul King",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "dark_magic",
+            "lore_of_undeath",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "vampire-counts-vampire-count",
+          "name": "Vampire Count",
+          "defaultLevel": 1,
+          "loreIds": [
+            "dark_magic",
+            "illusion",
+            "lore_of_undeath",
+            "necromancy"
+          ]
+        },
+        {
+          "id": "vampire-counts-vampire-thrall",
+          "name": "Vampire Thrall",
+          "defaultLevel": 1,
+          "loreIds": [
+            "dark_magic",
+            "illusion",
+            "lore_of_undeath",
+            "necromancy"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "vampire-counts-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "vampire-counts-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "daemons-of-chaos",
+      "name": "Daemons of Chaos",
+      "loreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_daemons"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "lore_of_daemons"
+      ],
+      "casterPresets": [
+        {
+          "id": "daemons-of-chaos-daemon-prince",
+          "name": "Daemon Prince",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-daemonic-herald-of-nurgle",
+          "name": "Daemonic Herald of Nurgle",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-daemonic-herald-of-slaanesh",
+          "name": "Daemonic Herald of Slaanesh",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "illusion",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-daemonic-herald-of-tzeentch",
+          "name": "Daemonic Herald of Tzeentch",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-great-unclean-one",
+          "name": "Great Unclean One",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-keeper-of-secrets",
+          "name": "Keeper of Secrets",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "illusion",
+            "lore_of_daemons"
+          ]
+        },
+        {
+          "id": "daemons-of-chaos-lord-of-change",
+          "name": "Lord of Change",
+          "defaultLevel": 2,
+          "loreIds": [
+            "battle_magic",
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_daemons"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "daemons-of-chaos-pink-horrors-of-tzeentch-core-scintillating-sorcery",
+          "name": "Pink Horrors of Tzeentch (Scintillating Sorcery)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "lore_of_daemons"
+          ],
+          "spellId": "",
+          "powerLevel": 0
+        },
+        {
+          "id": "daemons-of-chaos-pink-horrors-of-tzeentch-scintillating-sorcery",
+          "name": "Pink Horrors of Tzeentch (Scintillating Sorcery)",
+          "sourceType": "unit-rule",
+          "loreIds": [
+            "lore_of_daemons"
+          ],
+          "spellId": "",
+          "powerLevel": 0
+        }
+      ]
+    },
+    {
+      "id": "ogre-kingdoms",
+      "name": "Ogre Kingdoms",
+      "loreIds": [
+        "battle_magic",
+        "elementalism",
+        "illusion",
+        "the_great_maw"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "illusion",
+        "the_great_maw"
+      ],
+      "casterPresets": [
+        {
+          "id": "ogre-kingdoms-butcher",
+          "name": "Butcher",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "the_great_maw"
+          ]
+        },
+        {
+          "id": "ogre-kingdoms-firebelly",
+          "name": "Firebelly",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism"
+          ]
+        },
+        {
+          "id": "ogre-kingdoms-slaughtermaster",
+          "name": "Slaughtermaster",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "the_great_maw"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "ogre-kingdoms-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "ogre-kingdoms-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "lizardmen",
+      "name": "Lizardmen",
+      "loreIds": [
+        "battle_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_lustria",
+        "necromancy"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_lustria",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "lizardmen-skink-priest",
+          "name": "Skink Priest",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "illusion",
+            "lore_of_lustria"
+          ]
+        },
+        {
+          "id": "lizardmen-slann-mage-priest",
+          "name": "Slann Mage-Priest",
+          "defaultLevel": 4,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_lustria",
+            "necromancy"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "lizardmen-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "lizardmen-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "chaos-dwarfs",
+      "name": "Chaos Dwarfs",
+      "loreIds": [
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_hashut"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "daemonology",
+        "dark_magic",
+        "elementalism",
+        "lore_of_hashut"
+      ],
+      "casterPresets": [
+        {
+          "id": "chaos-dwarfs-daemonsmith-sorcerer",
+          "name": "Daemonsmith Sorcerer",
+          "defaultLevel": 1,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_hashut"
+          ]
+        },
+        {
+          "id": "chaos-dwarfs-sorcerer-prophet",
+          "name": "Sorcerer-Prophet",
+          "defaultLevel": 3,
+          "loreIds": [
+            "daemonology",
+            "dark_magic",
+            "elementalism",
+            "lore_of_hashut"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "chaos-dwarfs-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "chaos-dwarfs-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "grand-cathay",
+      "name": "Grand Cathay",
+      "loreIds": [
+        "battle_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_yang",
+        "lore_of_yin",
+        "miao_ying"
+      ],
+      "boundLoreIds": [
+        "battle_magic",
+        "dark_magic",
+        "elementalism",
+        "high_magic",
+        "illusion",
+        "lore_of_yang",
+        "lore_of_yin",
+        "miao_ying",
+        "necromancy"
+      ],
+      "casterPresets": [
+        {
+          "id": "grand-cathay-astromancer",
+          "name": "Astromancer",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_yang",
+            "lore_of_yin"
+          ]
+        },
+        {
+          "id": "grand-cathay-miao-ying",
+          "name": "Miao Ying",
+          "defaultLevel": 4,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "lore_of_yang",
+            "lore_of_yin",
+            "miao_ying"
+          ]
+        },
+        {
+          "id": "grand-cathay-shugengan",
+          "name": "Shugengan General",
+          "defaultLevel": 1,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_yang",
+            "lore_of_yin"
+          ]
+        },
+        {
+          "id": "grand-cathay-shugengan-lord",
+          "name": "Shugengan Lord",
+          "defaultLevel": 2,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_yang",
+            "lore_of_yin"
+          ]
+        },
+        {
+          "id": "grand-cathay-supreme-astromancer",
+          "name": "Supreme Astromancer",
+          "defaultLevel": 3,
+          "loreIds": [
+            "battle_magic",
+            "elementalism",
+            "high_magic",
+            "illusion",
+            "lore_of_yang",
+            "lore_of_yin"
+          ]
+        }
+      ],
+      "boundSpellSources": [
+        {
+          "id": "grand-cathay-alchemist-s-mask",
+          "name": "Alchemist's Mask",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "elementalism"
+          ],
+          "spellId": "elementalism/03_plague_of_rust.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "grand-cathay-ring-of-doom",
+          "name": "Ring of Doom",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "dark_magic"
+          ],
+          "spellId": "dark_magic/01_doombolt.png",
+          "powerLevel": 2
+        },
+        {
+          "id": "grand-cathay-ring-of-jet",
+          "name": "Ring of Jet",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "necromancy"
+          ],
+          "spellId": "necromancy/03_unquiet_spirits.png",
+          "powerLevel": 1
+        },
+        {
+          "id": "grand-cathay-ruby-ring-of-ruin",
+          "name": "Ruby Ring of Ruin",
+          "sourceType": "magic-item",
+          "loreIds": [
+            "battle_magic"
+          ],
+          "spellId": "battle_magic/02_fireball.png",
+          "powerLevel": 1
+        }
+      ]
+    }
+  ]
+}

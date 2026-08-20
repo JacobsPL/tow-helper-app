@@ -1,0 +1,479 @@
+{
+  "source_pdf": "C:\\Users\\jakub\\Downloads\\karty-magii v6.pdf",
+  "dpi": 300,
+  "total_spell_cards": 140,
+  "total_lore_folders": 33,
+  "ignored_pages": "Pages without Type/Effect text were skipped; in this PDF that includes backs and objective cards.",
+  "lores": [
+    {
+      "lore": "LORE OF THE SHADOWLANDS",
+      "folder": "lore_of_the_shadowlands",
+      "spell_count": 7,
+      "front_pages": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13
+      ],
+      "back_page_used": 2,
+      "back_image": "lore_of_the_shadowlands/back.png",
+      "csv": "lore_of_the_shadowlands/spells.csv"
+    },
+    {
+      "lore": "BATTLE MAGIC",
+      "folder": "battle_magic",
+      "spell_count": 7,
+      "front_pages": [
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27
+      ],
+      "back_page_used": 16,
+      "back_image": "battle_magic/back.png",
+      "csv": "battle_magic/spells.csv"
+    },
+    {
+      "lore": "DAEMONOLOGY",
+      "folder": "daemonology",
+      "spell_count": 7,
+      "front_pages": [
+        29,
+        31,
+        33,
+        35,
+        37,
+        39,
+        41
+      ],
+      "back_page_used": 30,
+      "back_image": "daemonology/back.png",
+      "csv": "daemonology/spells.csv"
+    },
+    {
+      "lore": "DARK MAGIC",
+      "folder": "dark_magic",
+      "spell_count": 7,
+      "front_pages": [
+        43,
+        45,
+        47,
+        49,
+        51,
+        53,
+        55
+      ],
+      "back_page_used": 44,
+      "back_image": "dark_magic/back.png",
+      "csv": "dark_magic/spells.csv"
+    },
+    {
+      "lore": "ELEMENTALISM",
+      "folder": "elementalism",
+      "spell_count": 7,
+      "front_pages": [
+        57,
+        59,
+        61,
+        63,
+        65,
+        67,
+        69
+      ],
+      "back_page_used": 58,
+      "back_image": "elementalism/back.png",
+      "csv": "elementalism/spells.csv"
+    },
+    {
+      "lore": "HIGH MAGIC",
+      "folder": "high_magic",
+      "spell_count": 7,
+      "front_pages": [
+        71,
+        73,
+        75,
+        77,
+        79,
+        81,
+        83
+      ],
+      "back_page_used": 72,
+      "back_image": "high_magic/back.png",
+      "csv": "high_magic/spells.csv"
+    },
+    {
+      "lore": "ILLUSION",
+      "folder": "illusion",
+      "spell_count": 7,
+      "front_pages": [
+        85,
+        87,
+        89,
+        91,
+        93,
+        95,
+        97
+      ],
+      "back_page_used": 86,
+      "back_image": "illusion/back.png",
+      "csv": "illusion/spells.csv"
+    },
+    {
+      "lore": "NECROMANCY",
+      "folder": "necromancy",
+      "spell_count": 7,
+      "front_pages": [
+        99,
+        101,
+        103,
+        105,
+        107,
+        109,
+        111
+      ],
+      "back_page_used": 100,
+      "back_image": "necromancy/back.png",
+      "csv": "necromancy/spells.csv"
+    },
+    {
+      "lore": "WAAAGH! MAGIC",
+      "folder": "waaagh_magic",
+      "spell_count": 7,
+      "front_pages": [
+        113,
+        115,
+        117,
+        119,
+        121,
+        123,
+        125
+      ],
+      "back_page_used": 114,
+      "back_image": "waaagh_magic/back.png",
+      "csv": "waaagh_magic/spells.csv"
+    },
+    {
+      "lore": "LORE OF THE LADY",
+      "folder": "lore_of_the_lady",
+      "spell_count": 3,
+      "front_pages": [
+        127,
+        129,
+        131
+      ],
+      "back_page_used": 128,
+      "back_image": "lore_of_the_lady/back.png",
+      "csv": "lore_of_the_lady/spells.csv"
+    },
+    {
+      "lore": "ATHEL LOREN",
+      "folder": "athel_loren",
+      "spell_count": 3,
+      "front_pages": [
+        133,
+        135,
+        137
+      ],
+      "back_page_used": 134,
+      "back_image": "athel_loren/back.png",
+      "csv": "athel_loren/spells.csv"
+    },
+    {
+      "lore": "LORE OF SAPHERY",
+      "folder": "lore_of_saphery",
+      "spell_count": 3,
+      "front_pages": [
+        139,
+        141,
+        143
+      ],
+      "back_page_used": 140,
+      "back_image": "lore_of_saphery/back.png",
+      "csv": "lore_of_saphery/spells.csv"
+    },
+    {
+      "lore": "LORE OF GORK",
+      "folder": "lore_of_gork",
+      "spell_count": 2,
+      "front_pages": [
+        145,
+        147
+      ],
+      "back_page_used": 146,
+      "back_image": "lore_of_gork/back.png",
+      "csv": "lore_of_gork/spells.csv"
+    },
+    {
+      "lore": "LORE OF MORK",
+      "folder": "lore_of_mork",
+      "spell_count": 2,
+      "front_pages": [
+        149,
+        151
+      ],
+      "back_page_used": 150,
+      "back_image": "lore_of_mork/back.png",
+      "csv": "lore_of_mork/spells.csv"
+    },
+    {
+      "lore": "LORE OF CHAOS",
+      "folder": "lore_of_chaos",
+      "spell_count": 4,
+      "front_pages": [
+        153,
+        155,
+        157,
+        159
+      ],
+      "back_page_used": 154,
+      "back_image": "lore_of_chaos/back.png",
+      "csv": "lore_of_chaos/spells.csv"
+    },
+    {
+      "lore": "LORE OF BEASTS",
+      "folder": "lore_of_beasts",
+      "spell_count": 3,
+      "front_pages": [
+        161,
+        163,
+        165
+      ],
+      "back_page_used": 162,
+      "back_image": "lore_of_beasts/back.png",
+      "csv": "lore_of_beasts/spells.csv"
+    },
+    {
+      "lore": "LORE OF NEHEKHARA",
+      "folder": "lore_of_nehekhara",
+      "spell_count": 3,
+      "front_pages": [
+        167,
+        169,
+        171
+      ],
+      "back_page_used": 168,
+      "back_image": "lore_of_nehekhara/back.png",
+      "csv": "lore_of_nehekhara/spells.csv"
+    },
+    {
+      "lore": "THE HORNED RAT",
+      "folder": "the_horned_rat",
+      "spell_count": 3,
+      "front_pages": [
+        173,
+        175,
+        177
+      ],
+      "back_page_used": 174,
+      "back_image": "the_horned_rat/back.png",
+      "csv": "the_horned_rat/spells.csv"
+    },
+    {
+      "lore": "LORE OF NAGGAROTH",
+      "folder": "lore_of_naggaroth",
+      "spell_count": 2,
+      "front_pages": [
+        179,
+        181
+      ],
+      "back_page_used": 180,
+      "back_image": "lore_of_naggaroth/back.png",
+      "csv": "lore_of_naggaroth/spells.csv"
+    },
+    {
+      "lore": "LORE OF UNDEATH",
+      "folder": "lore_of_undeath",
+      "spell_count": 3,
+      "front_pages": [
+        183,
+        185,
+        187
+      ],
+      "back_page_used": 184,
+      "back_image": "lore_of_undeath/back.png",
+      "csv": "lore_of_undeath/spells.csv"
+    },
+    {
+      "lore": "THE GREAT MAW",
+      "folder": "the_great_maw",
+      "spell_count": 2,
+      "front_pages": [
+        189,
+        191
+      ],
+      "back_page_used": 190,
+      "back_image": "the_great_maw/back.png",
+      "csv": "the_great_maw/spells.csv"
+    },
+    {
+      "lore": "LORE OF LUSTRIA",
+      "folder": "lore_of_lustria",
+      "spell_count": 2,
+      "front_pages": [
+        193,
+        195
+      ],
+      "back_page_used": 194,
+      "back_image": "lore_of_lustria/back.png",
+      "csv": "lore_of_lustria/spells.csv"
+    },
+    {
+      "lore": "LORE OF DAEMONS",
+      "folder": "lore_of_daemons",
+      "spell_count": 4,
+      "front_pages": [
+        197,
+        199,
+        201,
+        203
+      ],
+      "back_page_used": 198,
+      "back_image": "lore_of_daemons/back.png",
+      "csv": "lore_of_daemons/spells.csv"
+    },
+    {
+      "lore": "LORE OF HASHUT",
+      "folder": "lore_of_hashut",
+      "spell_count": 3,
+      "front_pages": [
+        205,
+        207,
+        209
+      ],
+      "back_page_used": 206,
+      "back_image": "lore_of_hashut/back.png",
+      "csv": "lore_of_hashut/spells.csv"
+    },
+    {
+      "lore": "SHAGGOTH",
+      "folder": "shaggoth",
+      "spell_count": 1,
+      "front_pages": [
+        211
+      ],
+      "back_page_used": 212,
+      "back_image": "shaggoth/back.png",
+      "csv": "shaggoth/spells.csv"
+    },
+    {
+      "lore": "TROLL MAGIC",
+      "folder": "troll_magic",
+      "spell_count": 7,
+      "front_pages": [
+        213,
+        215,
+        217,
+        219,
+        221,
+        223,
+        225
+      ],
+      "back_page_used": 214,
+      "back_image": "troll_magic/back.png",
+      "csv": "troll_magic/spells.csv"
+    },
+    {
+      "lore": "ANVIL OF DOOM",
+      "folder": "anvil_of_doom",
+      "spell_count": 4,
+      "front_pages": [
+        227,
+        229,
+        231,
+        233
+      ],
+      "back_page_used": 228,
+      "back_image": "anvil_of_doom/back.png",
+      "csv": "anvil_of_doom/spells.csv"
+    },
+    {
+      "lore": "CASKET OF SOULS",
+      "folder": "casket_of_souls",
+      "spell_count": 2,
+      "front_pages": [
+        235,
+        237
+      ],
+      "back_page_used": 236,
+      "back_image": "casket_of_souls/back.png",
+      "csv": "casket_of_souls/spells.csv"
+    },
+    {
+      "lore": "LORE OF THE WILDS",
+      "folder": "lore_of_the_wilds",
+      "spell_count": 7,
+      "front_pages": [
+        239,
+        241,
+        243,
+        245,
+        247,
+        249,
+        251
+      ],
+      "back_page_used": 240,
+      "back_image": "lore_of_the_wilds/back.png",
+      "csv": "lore_of_the_wilds/spells.csv"
+    },
+    {
+      "lore": "PRIMAL MAGIC",
+      "folder": "primal_magic",
+      "spell_count": 7,
+      "front_pages": [
+        253,
+        255,
+        257,
+        259,
+        261,
+        263,
+        265
+      ],
+      "back_page_used": 254,
+      "back_image": "primal_magic/back.png",
+      "csv": "primal_magic/spells.csv"
+    },
+    {
+      "lore": "LORE OF YIN",
+      "folder": "lore_of_yin",
+      "spell_count": 3,
+      "front_pages": [
+        267,
+        269,
+        271
+      ],
+      "back_page_used": 268,
+      "back_image": "lore_of_yin/back.png",
+      "csv": "lore_of_yin/spells.csv"
+    },
+    {
+      "lore": "LORE OF YANG",
+      "folder": "lore_of_yang",
+      "spell_count": 3,
+      "front_pages": [
+        273,
+        275,
+        277
+      ],
+      "back_page_used": 274,
+      "back_image": "lore_of_yang/back.png",
+      "csv": "lore_of_yang/spells.csv"
+    },
+    {
+      "lore": "MIAO YING",
+      "folder": "miao_ying",
+      "spell_count": 1,
+      "front_pages": [
+        279
+      ],
+      "back_page_used": 280,
+      "back_image": "miao_ying/back.png",
+      "csv": "miao_ying/spells.csv"
+    }
+  ]
+}
