@@ -30,6 +30,7 @@ public final class HttpApi {
                 staticFiles.hostedPath = "/magic-cards";
                 staticFiles.directory = cardsDir.toString();
                 staticFiles.location = Location.EXTERNAL;
+                staticFiles.headers = Map.of("Cache-Control", "public, max-age=31536000, immutable");
             });
         });
 

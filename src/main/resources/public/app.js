@@ -10,6 +10,9 @@ let serverErrors = [];
 let selectionDraft = null;
 let boundEditor = null;
 let cardPreview = null;
+const imagePreloadCache = new Map();
+const queuedImagePreloads = new Set();
+let imagePreloadHandle = 0;
 
 const SIDES = [
     {id: "PLAYER", label: "Gracz"},
@@ -57,14 +60,6 @@ app.addEventListener("change", async (event) => {
     }
 });
 
-app.addEventListener("input", (event) => {
-    const target = event.target;
-    if (target.dataset.change === "bound-field" && target.dataset.field === "name" && boundEditor) {
-        boundEditor.draft.name = target.value;
-        boundEditor.error = "";
-    }
-});
-
 app.addEventListener("click", async (event) => {
     const button = event.target.closest("[data-action]");
     if (!button) {
@@ -81,7 +76,7 @@ app.addEventListener("click", async (event) => {
     } else if (action === "choose-spells") {
         openMageSpells(button.dataset.mageId);
     } else if (action === "toggle-select-spell") {
-        toggleSelectedSpell(button.dataset.spellId);
+        toggleSelectedSpell(button.dataset.spellId, button);
     } else if (action === "confirm-spell-selection") {
         await confirmSpellSelection();
     } else if (action === "cancel-spell-selection") {
@@ -98,7 +93,7 @@ app.addEventListener("click", async (event) => {
         cardPreview = null;
         renderCurrent();
     } else if (action === "choose-bound-spell") {
-        chooseBoundSpell(button.dataset.spellId);
+        chooseBoundSpell(button.dataset.spellId, button);
     } else if (action === "save-bound-spell") {
         await saveBoundSpell();
     } else if (action === "delete-bound-spell") {
@@ -113,7 +108,7 @@ app.addEventListener("click", async (event) => {
         await saveSession();
         renderConfig();
     } else if (action === "toggle-used-card") {
-        await toggleUsedCard(button.dataset.cardKey);
+        await toggleUsedCard(button.dataset.cardKey, button);
     } else if (action === "end-turn") {
         await endTurn();
     }
@@ -137,7 +132,7 @@ async function route() {
     const parts = hashParts();
     if (parts[0] !== "session" || !parts[1]) {
         session = null;
-        renderHome();
+        await createSession();
         return;
     }
 
@@ -182,6 +177,49 @@ async function api(path, options = {}) {
         throw new ApiError(data?.errors || [{message: response.statusText}]);
     }
     return data;
+}
+
+function queueSpellImagePreload(spell) {
+    if (!spell) {
+        return;
+    }
+    queueImagePreload([spell.frontUrl, spell.backUrl]);
+}
+
+function queueImagePreload(urls) {
+    for (const url of urls || []) {
+        if (url && !imagePreloadCache.has(url)) {
+            queuedImagePreloads.add(url);
+        }
+    }
+    if (!queuedImagePreloads.size || imagePreloadHandle) {
+        return;
+    }
+
+    const schedule = window.requestIdleCallback || ((callback) => window.setTimeout(callback, 80));
+    imagePreloadHandle = schedule(preloadQueuedImages, {timeout: 500});
+}
+
+function preloadQueuedImages() {
+    imagePreloadHandle = 0;
+    const batch = Array.from(queuedImagePreloads).slice(0, 8);
+    for (const url of batch) {
+        queuedImagePreloads.delete(url);
+        preloadImage(url);
+    }
+    if (queuedImagePreloads.size) {
+        queueImagePreload([]);
+    }
+}
+
+function preloadImage(url) {
+    if (!url || imagePreloadCache.has(url)) {
+        return;
+    }
+    const image = new Image();
+    image.decoding = "async";
+    image.src = url;
+    imagePreloadCache.set(url, image);
 }
 
 async function createSession() {
@@ -243,25 +281,6 @@ function ensureSessionShape() {
     }
 }
 
-function renderHome() {
-    const lastSession = localStorage.getItem("tow-helper-last-session");
-    app.innerHTML = `
-        <main class="page">
-            <section class="home-panel">
-                <div>
-                    <h1>TOW Helper</h1>
-                    <p>Pomocnik do obsługi magii w Warhammer: The Old World.</p>
-                </div>
-                <p>Utwórz osobną sesję gry dla stołu. Każda sesja ma własny identyfikator i zapisuje magów, czary oraz użycie kart po odświeżeniu strony.</p>
-                <div class="actions">
-                    <button type="button" data-action="create-session">Utwórz nową sesję</button>
-                    ${lastSession ? `<button type="button" class="secondary" data-action="open-last-session">Otwórz ostatnią sesję</button>` : ""}
-                </div>
-            </section>
-        </main>
-    `;
-}
-
 function renderMissingSession(id, errors) {
     app.innerHTML = `
         <main class="page">
@@ -284,7 +303,7 @@ function renderTopBar(label, actions = "") {
         <header class="top-bar">
             <div class="brand">
                 <strong>TOW Helper</strong>
-                <span>${escapeHtml(label)}</span>
+                ${label ? `<span>${escapeHtml(label)}</span>` : ""}
             </div>
             <div class="actions">${actions}</div>
         </header>
@@ -292,23 +311,20 @@ function renderTopBar(label, actions = "") {
 }
 
 function renderConfig() {
+    const canStartGame = hasGameContent();
     app.innerHTML = `
-        ${renderTopBar(`Konfiguracja sesji ${shortId(session.id)}`, `
-            <button type="button" class="warning" data-action="start-game">Rozpocznij grę</button>
+        ${renderTopBar("", `
+            ${renderStartGameControl(canStartGame)}
         `)}
         <main class="page">
             <div class="page-title">
-                <h1>Konfiguracja sesji</h1>
-                <p>Dodaj magów, wybierz Lore i przypisz czary. Bound Spells mogą być niezależne albo przypisane do konkretnego maga.</p>
+                <h1>Wybór magów</h1>
             </div>
             <div class="config-controls">
                 <button type="button" class="secondary" data-action="reset-side" data-side="PLAYER">Reset gracza</button>
                 <button type="button" class="secondary" data-action="reset-side" data-side="OPPONENT">Reset przeciwnika</button>
             </div>
-            <div class="config-messages">
-                ${renderMessages(serverErrors, "error")}
-                ${renderMessages(serverWarnings, "warning")}
-            </div>
+            ${renderConfigMessages()}
             <div class="duel-grid">
                 ${SIDES.map((side) => renderConfigSide(side.id)).join("")}
             </div>
@@ -318,24 +334,52 @@ function renderConfig() {
     `;
 }
 
+function renderStartGameControl(canStartGame) {
+    const message = "Nie można rozpocząć gry bez maga albo Bound Spella.";
+    return `
+        <span class="start-game-control">
+            <button type="button" class="warning" data-action="start-game" ${canStartGame ? "" : "disabled"}>Rozpocznij grę</button>
+            ${canStartGame ? "" : `<span class="start-warning-icon" tabindex="0" title="${escapeAttr(message)}" aria-label="${escapeAttr(message)}">!</span>`}
+        </span>
+    `;
+}
+
+function renderConfigMessages() {
+    const errors = (serverErrors || []).filter(shouldShowConfigMessage);
+    const warnings = (serverWarnings || []).filter(shouldShowConfigMessage);
+    if (!errors.length && !warnings.length) {
+        return "";
+    }
+    return `
+        <div class="config-messages">
+            ${renderMessages(errors, "error")}
+            ${renderMessages(warnings, "warning")}
+        </div>
+    `;
+}
+
+function shouldShowConfigMessage(message) {
+    return !["empty-session", "mage-no-spells", "mage-spell-limit"].includes(message?.code);
+}
+
 function renderConfigSide(side) {
     const mages = magesForSide(side);
-    const boundSpells = boundSpellsForSide(side);
+    const boundSpells = boundSpellEntriesForSide(side);
     const faction = factionForSide(side);
     return `
         <section class="side-column">
             <div class="side-heading">
                 <div>
                     <h2>${escapeHtml(sideLabel(side))}</h2>
-                    <span>${faction ? `${escapeHtml(faction.name)} · ` : ""}${mages.length} magów · ${boundSpells.length} niezależnych Bound Spells</span>
+                    <span>${faction ? `${escapeHtml(faction.name)} · ` : ""}${mages.length} magów · ${boundSpells.length} Bound Spells</span>
                 </div>
             </div>
             ${renderFactionPicker(side)}
             ${faction ? `
                 ${renderAddMageForm(side)}
                 ${mages.length ? mages.map(renderMagePanel).join("") : `<div class="empty-panel">Brak magów po tej stronie.</div>`}
-                ${renderIndependentBoundSpells(side)}
-            ` : `<div class="empty-panel">Wybierz frakcję, żeby dodać magów i Bound Spells po tej stronie.</div>`}
+                ${renderBoundSpellsSection(side)}
+            ` : ""}
         </section>
     `;
 }
@@ -343,12 +387,10 @@ function renderConfigSide(side) {
 function renderFactionPicker(side) {
     const selected = factionIdForSide(side);
     const faction = factionForSide(side);
-    const loreCount = availableLoresForSide(side, "mage").length;
     return `
         <section class="form-panel faction-panel">
             <div class="panel-title">
                 <h2>Frakcja</h2>
-                <span>${faction ? `${loreCount} dostępnych Lore dla tej frakcji` : "Najpierw wybierz główną frakcję dla tej strony."}</span>
             </div>
             <label>Armia
                 ${factionSelect(side, selected)}
@@ -359,31 +401,27 @@ function renderFactionPicker(side) {
 
 function renderAddMageForm(side) {
     const hasAvailableLores = availableLoresForSide(side, "mage").length > 0;
+    const hasCasterPresets = casterPresetsForSide(side).length > 0;
+    const canAddMage = hasAvailableLores && hasCasterPresets;
     return `
         <form class="form-panel" data-action="add-mage">
             <input type="hidden" name="side" value="${escapeAttr(normalizeSide(side))}">
             <div class="panel-title">
                 <h2>Dodaj maga</h2>
-                <span>Wybierz postać z danych OWB albo zostaw własną nazwę. Poziom określa standardowy limit czarów.</span>
             </div>
             ${hasAvailableLores ? "" : renderMessages([{message: "Ta frakcja nie ma dostępnych Lore w danych OWB dla zwykłych magów."}], "warning")}
+            ${hasAvailableLores && !hasCasterPresets ? renderMessages([{message: "Brak predefiniowanych postaci maga dla tej frakcji."}], "warning") : ""}
             <div class="form-grid mage-add-grid">
                 <label>Postać
-                    ${casterPresetSelect(side)}
+                    ${casterPresetSelect(side, "", `name="casterPresetId" data-change="add-caster-preset" data-side="${escapeAttr(normalizeSide(side))}" required ${canAddMage ? "" : "disabled"}`)}
                 </label>
-                <label>Nazwa / oznaczenie
-                    <input name="name" required placeholder="np. Nekromanta" ${hasAvailableLores ? "" : "disabled"}>
-                </label>
-                <label>Poziom
-                    ${levelSelect("level", 1, hasAvailableLores ? "" : "disabled")}
+                <label>Lvl
+                    ${levelSelect("level", 1, canAddMage ? "" : "disabled")}
                 </label>
                 <label>Lore
-                    ${loreSelect("loreId", "", "", side, "mage")}
+                    ${loreSelect("loreId", "", "disabled", side, "mage")}
                 </label>
-                <label>Komentarz
-                    <input name="note" placeholder="np. generał, bunkier, artefakt" ${hasAvailableLores ? "" : "disabled"}>
-                </label>
-                <button type="submit" ${hasAvailableLores ? "" : "disabled"}>Dodaj</button>
+                <button type="submit" ${canAddMage ? "" : "disabled"}>Dodaj</button>
             </div>
         </form>
     `;
@@ -395,7 +433,7 @@ async function addMage(form) {
     const casterPresetId = normalizeCasterPresetId(side, formData.get("casterPresetId"));
     const loreId = String(formData.get("loreId") || "");
     const preset = casterPresetForSide(side, casterPresetId);
-    if (!factionIdForSide(side) || !isLoreAvailableForSide(side, loreId, "mage", casterPresetId)) {
+    if (!factionIdForSide(side) || !preset || !isLoreAvailableForSide(side, loreId, "mage", casterPresetId)) {
         renderConfig();
         return;
     }
@@ -403,8 +441,8 @@ async function addMage(form) {
         id: crypto.randomUUID(),
         side,
         casterPresetId,
-        name: String(formData.get("name") || "").trim() || preset?.name || "Mag",
-        note: String(formData.get("note") || "").trim(),
+        name: preset.name,
+        note: "",
         level: Number(formData.get("level") || 1),
         loreId,
         spellIds: [],
@@ -435,33 +473,29 @@ function updateAddMagePreset(target) {
     }
     const side = normalizeSide(form.querySelector('input[name="side"]')?.value);
     const preset = casterPresetForSide(side, target.value);
-    const nameInput = form.querySelector('input[name="name"]');
     const levelSelectElement = form.querySelector('select[name="level"]');
     const loreSelectElement = form.querySelector('select[name="loreId"]');
-    if (preset && nameInput && !nameInput.value.trim()) {
-        nameInput.value = preset.name;
-    }
     if (preset && levelSelectElement) {
         levelSelectElement.value = String(preset.defaultLevel || 1);
     }
     if (loreSelectElement) {
         const lores = availableLoresForSide(side, "mage", preset?.id || "");
         loreSelectElement.innerHTML = loreOptionsHtml(lores, lores[0]?.id || "");
-        loreSelectElement.disabled = lores.length === 0;
+        loreSelectElement.disabled = !preset || lores.length === 0;
     }
 }
 
 function renderMagePanel(mage) {
     const selectedSpells = mage.spellIds.map((id) => spellsById.get(id)).filter(Boolean);
     const warnings = mageWarnings(mage);
-    const canAddBoundSpell = availableLoresForSide(mage.side, "bound").length > 0;
     const preset = casterPresetForSide(mage.side, mage.casterPresetId);
+    const needsSpells = selectedSpells.length === 0;
     return `
-        <article class="mage-panel">
+        <article class="mage-panel ${needsSpells ? "needs-spells" : ""}">
             <div class="panel-head">
                 <div class="panel-title">
                     <h2>${escapeHtml(mage.name || "Mag")}</h2>
-                    <span>Poziom ${mage.level} · ${mage.loreId ? escapeHtml(loreName(mage.loreId)) : "bez Lore"}${preset ? ` · ${escapeHtml(preset.name)}` : ""}</span>
+                    <span>Lvl ${mage.level} · ${mage.loreId ? escapeHtml(loreName(mage.loreId)) : "bez Lore"}${preset ? ` · ${escapeHtml(preset.name)}` : ""}</span>
                 </div>
                 <div class="actions">
                     <button type="button" class="secondary" data-action="choose-spells" data-mage-id="${escapeAttr(mage.id)}" ${mage.loreId ? "" : "disabled"}>Wybierz czary</button>
@@ -469,35 +503,24 @@ function renderMagePanel(mage) {
                 </div>
             </div>
             <div class="mage-edit-grid">
-                <label>Nazwa
-                    <input data-change="mage-name" data-mage-id="${escapeAttr(mage.id)}" value="${escapeAttr(mage.name || "")}">
+                <label>Postać
+                    ${casterPresetSelect(mage.side, mage.casterPresetId, `data-change="mage-caster-preset" data-mage-id="${escapeAttr(mage.id)}"`)}
                 </label>
-                <label>Poziom
+                <label>Lvl
                     ${levelSelect("", mage.level, `data-change="mage-level" data-mage-id="${escapeAttr(mage.id)}"`)}
                 </label>
                 <label>Lore
                     ${loreSelect("", mage.loreId, `data-change="mage-lore" data-mage-id="${escapeAttr(mage.id)}"`, mage.side, "mage", mage.casterPresetId)}
                 </label>
             </div>
-            <label class="wide-field">Komentarz
-                <input data-change="mage-note" data-mage-id="${escapeAttr(mage.id)}" value="${escapeAttr(mage.note || "")}" placeholder="np. siedzi w łucznikach, ma przedmiot, cel przeciwnika">
-            </label>
             ${renderMessages(warnings, "warning")}
             <div>
                 <div class="subsection-title">
                     <h3>Wybrane czary</h3>
-                    <span class="hint">${selectedSpells.length}/${mage.level} standardowo</span>
                 </div>
                 <div class="chips">
-                    ${selectedSpells.length ? selectedSpells.map((spell) => `<span class="chip">${escapeHtml(spell.spellName)}</span>`).join("") : `<span class="hint">Brak wybranych czarów.</span>`}
+                    ${selectedSpells.map((spell) => `<span class="chip">${escapeHtml(spell.spellName)}</span>`).join("")}
                 </div>
-            </div>
-            <div>
-                <div class="subsection-title">
-                    <h3>Bound Spells maga</h3>
-                    <button type="button" class="secondary" data-action="open-bound-editor" data-owner-mage-id="${escapeAttr(mage.id)}" data-side="${escapeAttr(mage.side)}" ${canAddBoundSpell ? "" : "disabled"}>Dodaj Bound Spell</button>
-                </div>
-                ${renderBoundList(mage.boundSpells, mage.id, mage.side)}
             </div>
         </article>
     `;
@@ -508,11 +531,19 @@ async function updateMageField(target) {
     if (!mage) {
         return;
     }
-    if (target.dataset.change === "mage-name") {
-        mage.name = target.value.trim();
-    }
-    if (target.dataset.change === "mage-note") {
-        mage.note = target.value.trim();
+    if (target.dataset.change === "mage-caster-preset") {
+        const preset = casterPresetForSide(mage.side, target.value);
+        if (!preset) {
+            renderConfig();
+            return;
+        }
+        mage.casterPresetId = preset.id;
+        mage.name = preset.name;
+        mage.level = preset.defaultLevel || mage.level;
+        if (!preset.loreIds.includes(mage.loreId)) {
+            mage.loreId = preset.loreIds[0] || "";
+            mage.spellIds = [];
+        }
     }
     if (target.dataset.change === "mage-level") {
         mage.level = Number(target.value);
@@ -520,7 +551,6 @@ async function updateMageField(target) {
     if (target.dataset.change === "mage-lore") {
         mage.loreId = isLoreAvailableForSide(mage.side, target.value, "mage", mage.casterPresetId) ? target.value : "";
         mage.spellIds = [];
-        mage.boundSpells = [];
     }
     await saveSession();
     renderConfig();
@@ -557,23 +587,18 @@ function renderSpellSelection(mageId) {
     const lore = loreById.get(mage.loreId);
     const selectedCount = selectionDraft.spellIds.length;
     const warnings = mageWarnings(mage, selectedCount);
-    const canAddBoundSpell = availableLoresForSide(mage.side, "bound").length > 0;
-    if (selectedCount === 0) {
-        warnings.push({message: "Nie wybrano żadnego czaru. Możesz zatwierdzić, jeśli to zamierzone."});
-    }
 
     app.innerHTML = `
-        ${renderTopBar(`Wybór czarów · ${sideLabel(mage.side)} · ${mage.name || "Mag"}`, `
+        ${renderTopBar("", `
             <button type="button" class="secondary" data-action="cancel-spell-selection">Wróć</button>
         `)}
         <main class="page">
             <div class="selection-toolbar">
                 <div class="panel-title">
                     <h2>${escapeHtml(lore?.name || "Lore")}</h2>
-                    <span>${selectedCount} wybranych · standardowy limit poziomu ${mage.level}: ${mage.level}</span>
+                    <span data-selection-count>${selectedCount} wybranych</span>
                 </div>
                 <div class="actions">
-                    <button type="button" class="secondary" data-action="open-bound-editor" data-owner-mage-id="${escapeAttr(mage.id)}" data-side="${escapeAttr(mage.side)}" ${canAddBoundSpell ? "" : "disabled"}>Dodaj Bound Spell</button>
                     <button type="button" data-action="confirm-spell-selection">Zatwierdź wybór</button>
                 </div>
             </div>
@@ -583,32 +608,45 @@ function renderSpellSelection(mageId) {
                     flipped: selectionDraft.spellIds.includes(spell.id),
                     selected: selectionDraft.spellIds.includes(spell.id),
                     action: "toggle-select-spell",
-                    casterLevel: mage.level
+                    casterLevel: mage.level,
+                    eager: true
                 })).join("")}
             </div>
-            <section class="form-panel spell-selection-bound-panel">
-                <div class="subsection-title">
-                    <h3>Bound Spells przypisane do maga</h3>
-                    <button type="button" class="secondary" data-action="open-bound-editor" data-owner-mage-id="${escapeAttr(mage.id)}" data-side="${escapeAttr(mage.side)}" ${canAddBoundSpell ? "" : "disabled"}>Dodaj Bound Spell</button>
-                </div>
-                ${renderBoundList(mage.boundSpells, mage.id, mage.side)}
-            </section>
         </main>
         ${renderBoundModal()}
         ${renderCardPreviewModal()}
     `;
 }
 
-function toggleSelectedSpell(spellId) {
+function toggleSelectedSpell(spellId, button = null) {
     if (!selectionDraft) {
         return;
     }
-    if (selectionDraft.spellIds.includes(spellId)) {
+    const wasSelected = selectionDraft.spellIds.includes(spellId);
+    if (wasSelected) {
         selectionDraft.spellIds = selectionDraft.spellIds.filter((id) => id !== spellId);
     } else {
         selectionDraft.spellIds.push(spellId);
     }
-    renderSpellSelection(selectionDraft.mageId);
+    const isSelected = !wasSelected;
+    if (button) {
+        updateSpellButtonFace(button, isSelected, "selected");
+        updateSelectionCount();
+    } else {
+        renderSpellSelection(selectionDraft.mageId);
+    }
+}
+
+function updateSelectionCount() {
+    const count = document.querySelector("[data-selection-count]");
+    if (count && selectionDraft) {
+        const text = `${selectionDraft.spellIds.length} wybranych`;
+        if (count.firstChild) {
+            count.firstChild.nodeValue = text;
+        } else {
+            count.append(text);
+        }
+    }
 }
 
 async function confirmSpellSelection() {
@@ -622,40 +660,42 @@ async function confirmSpellSelection() {
     goToSession();
 }
 
-function renderIndependentBoundSpells(side) {
-    const boundSpells = boundSpellsForSide(side);
+function renderBoundSpellsSection(side) {
+    const boundSpells = boundSpellEntriesForSide(side);
     const canAddBoundSpell = availableLoresForSide(side, "bound").length > 0;
     return `
         <section class="form-panel">
             <div class="subsection-title">
                 <div class="panel-title">
-                    <h2>Niezależne Bound Spells</h2>
-                    <span>Dla jednostek, przedmiotów albo źródeł niezwiązanych z magiem.</span>
+                    <h2>Bound Spells</h2>
                 </div>
                 <button type="button" class="secondary" data-action="open-bound-editor" data-side="${escapeAttr(side)}" ${canAddBoundSpell ? "" : "disabled"}>Dodaj Bound Spell</button>
             </div>
-            ${renderBoundList(boundSpells, "", side)}
+            ${renderBoundList(boundSpells, side)}
         </section>
     `;
 }
 
-function renderBoundList(boundSpells, ownerMageId, side = "PLAYER") {
-    if (!boundSpells?.length) {
+function renderBoundList(boundEntries, side = "PLAYER") {
+    const entries = boundEntries || [];
+    if (!entries.length) {
         return `<div class="empty-panel">Brak Bound Spells.</div>`;
     }
     return `
         <div class="bound-list">
-            ${boundSpells.map((boundSpell) => {
+            ${entries.map((entry) => {
+                const boundSpell = entry.boundSpell;
                 const spell = spellsById.get(boundSpell.spellId);
+                const owner = entry.ownerName ? `${entry.ownerName} · ` : "";
                 return `
                     <div class="bound-row">
                         <div>
                             <strong>${escapeHtml(boundSpell.name || "Bound Spell")}</strong>
-                            <span>${escapeHtml(loreName(boundSpell.loreId))} · poziom ${boundSpell.level} · ${escapeHtml(spell?.spellName || "bez czaru")}</span>
+                            <span>${escapeHtml(owner)}${escapeHtml(loreName(boundSpell.loreId))} · Lvl ${boundSpell.level} · ${escapeHtml(spell?.spellName || "bez czaru")}</span>
                         </div>
                         <div class="actions">
-                            <button type="button" class="secondary" data-action="open-bound-editor" data-owner-mage-id="${escapeAttr(ownerMageId)}" data-bound-id="${escapeAttr(boundSpell.id)}" data-side="${escapeAttr(side)}">Edytuj</button>
-                            <button type="button" class="danger" data-action="delete-bound-spell" data-owner-mage-id="${escapeAttr(ownerMageId)}" data-bound-id="${escapeAttr(boundSpell.id)}">Usuń</button>
+                            <button type="button" class="secondary" data-action="open-bound-editor" data-owner-mage-id="${escapeAttr(entry.ownerMageId)}" data-bound-id="${escapeAttr(boundSpell.id)}" data-side="${escapeAttr(side)}">Edytuj</button>
+                            <button type="button" class="danger" data-action="delete-bound-spell" data-owner-mage-id="${escapeAttr(entry.ownerMageId)}" data-bound-id="${escapeAttr(boundSpell.id)}">Usuń</button>
                         </div>
                     </div>
                 `;
@@ -674,6 +714,7 @@ function openBoundEditor(ownerMageId, boundId, side = "") {
     }
     boundEditor = {
         ownerMageId,
+        originalOwnerMageId: ownerMageId,
         boundId,
         side: editorSide,
         error: "",
@@ -696,9 +737,6 @@ function updateBoundDraft(target) {
         return;
     }
     const field = target.dataset.field;
-    if (field === "name") {
-        boundEditor.draft.name = target.value;
-    }
     if (field === "level") {
         boundEditor.draft.level = Number(target.value);
     }
@@ -730,13 +768,26 @@ function applyBoundSource(sourceId) {
     boundEditor.draft.spellId = source.spellId || "";
 }
 
-function chooseBoundSpell(spellId) {
+function chooseBoundSpell(spellId, button = null) {
     if (!boundEditor) {
         return;
     }
+    const previousSpellId = boundEditor.draft.spellId;
     boundEditor.draft.spellId = spellId;
     boundEditor.error = "";
-    renderCurrent();
+    if (!button) {
+        renderCurrent();
+        return;
+    }
+
+    if (previousSpellId && previousSpellId !== spellId) {
+        const previousButton = Array.from(document.querySelectorAll(".bound-modal .spell-card"))
+            .find((item) => item.dataset.spellId === previousSpellId);
+        if (previousButton) {
+            updateSpellButtonFace(previousButton, false, "selected");
+        }
+    }
+    updateSpellButtonFace(button, true, "selected");
 }
 
 async function saveBoundSpell() {
@@ -755,17 +806,28 @@ async function saveBoundSpell() {
         return;
     }
     draft.name = draft.name?.trim() || "Bound Spell";
-    draft.side = boundEditor.ownerMageId
-        ? normalizeSide(findMage(boundEditor.ownerMageId)?.side)
+    const nextOwnerMageId = normalizeOwnerMageId(boundEditor.side, boundEditor.ownerMageId);
+    const originalOwnerMageId = normalizeOwnerMageId(boundEditor.side, boundEditor.originalOwnerMageId);
+    draft.side = nextOwnerMageId
+        ? normalizeSide(findMage(nextOwnerMageId)?.side)
         : normalizeSide(boundEditor.side || draft.side);
 
-    const list = boundEditor.ownerMageId
-        ? findMage(boundEditor.ownerMageId)?.boundSpells
+    const originalList = originalOwnerMageId
+        ? findMage(originalOwnerMageId)?.boundSpells
         : session.boundSpells;
-    if (!list) {
+    const list = nextOwnerMageId
+        ? findMage(nextOwnerMageId)?.boundSpells
+        : session.boundSpells;
+    if (!originalList || !list) {
         return;
     }
 
+    if (originalList !== list) {
+        const originalIndex = originalList.findIndex((item) => item.id === draft.id);
+        if (originalIndex >= 0) {
+            originalList.splice(originalIndex, 1);
+        }
+    }
     const index = list.findIndex((item) => item.id === draft.id);
     if (index >= 0) {
         list[index] = structuredClone(draft);
@@ -800,7 +862,7 @@ async function resetSide(side) {
     if (!hasContent) {
         return;
     }
-    if (!confirm(`Zresetować stronę "${label}"? Usunie to frakcję, magów, ich czary oraz niezależne Bound Spells tylko z tej strony.`)) {
+    if (!confirm(`Zresetować stronę "${label}"?`)) {
         return;
     }
     session.mages = session.mages.filter((mage) => normalizeSide(mage.side) !== normalizedSide);
@@ -818,11 +880,10 @@ function renderBoundModal() {
     const lore = loreById.get(draft.loreId);
     return `
         <div class="modal-backdrop">
-            <section class="modal">
+            <section class="modal bound-modal">
                 <div class="panel-head">
                     <div class="panel-title">
                         <h2>${boundEditor.boundId ? "Edytuj Bound Spell" : "Dodaj Bound Spell"}</h2>
-                        <span>${boundEditor.ownerMageId ? "Przypisany do maga" : "Niezależny element sesji"} · ${escapeHtml(sideLabel(boundEditor.side))}</span>
                     </div>
                     <button type="button" class="secondary" data-action="close-bound-editor">Zamknij</button>
                 </div>
@@ -831,24 +892,21 @@ function renderBoundModal() {
                     <label>Źródło
                         ${boundSourceSelect(boundEditor.side, draft.sourceId || "")}
                     </label>
-                    <label>Nazwa
-                        <input data-change="bound-field" data-field="name" value="${escapeAttr(draft.name || "")}">
-                    </label>
-                    <label>Poziom
+                    <label>Lvl
                         ${levelSelect("", draft.level, `data-change="bound-field" data-field="level"`)}
                     </label>
                     <label>Lore
                         ${loreSelect("", draft.loreId, `data-change="bound-field" data-field="loreId"`, boundEditor.side, "bound")}
                     </label>
                 </div>
-                <div class="hint">Wybierz dokładnie jeden czar. Bound Spell nie wlicza się do limitu czarów maga.</div>
-                <div class="card-grid">
+                <div class="card-grid modal-card-grid">
                     ${(lore?.spells || []).map((spell) => renderSpellCard(spell, {
                         flipped: draft.spellId === spell.id,
                         selected: draft.spellId === spell.id,
                         action: "choose-bound-spell",
                         casterLevel: draft.level,
-                        casterKind: "bound"
+                        casterKind: "bound",
+                        eager: true
                     })).join("")}
                 </div>
                 <div class="actions">
@@ -861,6 +919,10 @@ function renderBoundModal() {
 }
 
 async function startGame() {
+    if (!hasGameContent()) {
+        renderConfig();
+        return;
+    }
     try {
         const response = await api(`/api/sessions/${encodeURIComponent(session.id)}/start`, {method: "POST"});
         applySessionResponse(response);
@@ -877,14 +939,11 @@ async function startGame() {
 
 function renderGame() {
     app.innerHTML = `
-        ${renderTopBar(`Gra · sesja ${shortId(session.id)}`, `
-            <button type="button" class="secondary" data-action="back-to-config">Konfiguracja</button>
+        ${renderTopBar("", `
+            <button type="button" class="secondary" data-action="back-to-config">Wybór magów</button>
             <button type="button" class="warning" data-action="end-turn">Zakończ turę</button>
         `)}
         <main class="page">
-            <div class="game-hint">
-                Kliknij kartę, aby oznaczyć czar jako użyty w tej turze. To osobny stan od wyboru czarów.
-            </div>
             <div class="duel-grid game-duel-grid">
                 ${SIDES.map((side) => renderGameSide(side.id)).join("")}
             </div>
@@ -895,48 +954,45 @@ function renderGame() {
 
 function renderGameSide(side) {
     const mages = magesForSide(side);
-    const boundSpells = boundSpellsForSide(side);
+    const boundSpells = boundSpellEntriesForSide(side);
     const faction = factionForSide(side);
     return `
         <section class="side-column game-side">
             <div class="side-heading">
                 <div>
                     <h2>${escapeHtml(sideLabel(side))}</h2>
-                    <span>${faction ? `${escapeHtml(faction.name)} · ` : ""}${mages.length} magów · ${boundSpells.length} niezależnych Bound Spells</span>
+                    <span>${faction ? `${escapeHtml(faction.name)} · ` : ""}${mages.length} magów · ${boundSpells.length} Bound Spells</span>
                 </div>
             </div>
             ${mages.length ? mages.map(renderMageGameSection).join("") : `<div class="empty-panel">Brak magów po tej stronie.</div>`}
-            ${renderIndependentBoundGameSection(side)}
+            ${renderBoundGameSection(side)}
         </section>
     `;
 }
 
 function renderMageGameSection(mage) {
     const spells = mage.spellIds.map((id) => spellsById.get(id)).filter(Boolean);
+    const needsSpells = spells.length === 0;
     return `
-        <article class="game-section">
+        <article class="game-section ${needsSpells ? "needs-spells" : ""}">
             <div class="panel-title">
                 <h2>${escapeHtml(mage.name || "Mag")}</h2>
-                <span>Poziom ${mage.level} · ${escapeHtml(loreName(mage.loreId))}</span>
+                <span>Lvl ${mage.level} · ${escapeHtml(loreName(mage.loreId))}</span>
             </div>
-            ${mage.note ? `<div class="mage-note">${escapeHtml(mage.note)}</div>` : ""}
             <div class="subsection-title"><h3>Czary</h3></div>
-            ${spells.length ? `<div class="card-grid">${spells.map((spell) => renderGameSpellCard(mage, spell)).join("")}</div>` : `<div class="empty-panel">Ten mag nie ma wybranych czarów.</div>`}
-            <div class="subsection-title"><h3>Bound Spells</h3></div>
-            ${mage.boundSpells.length ? `<div class="card-grid">${mage.boundSpells.map(renderGameBoundCard).join("")}</div>` : `<div class="empty-panel">Brak Bound Spells przypisanych do maga.</div>`}
+            ${spells.length ? `<div class="card-grid">${spells.map((spell) => renderGameSpellCard(mage, spell)).join("")}</div>` : ""}
         </article>
     `;
 }
 
-function renderIndependentBoundGameSection(side) {
-    const boundSpells = boundSpellsForSide(side);
+function renderBoundGameSection(side) {
+    const boundSpells = boundSpellEntriesForSide(side);
     return `
         <article class="game-section">
             <div class="panel-title">
-                <h2>Niezależne Bound Spells</h2>
-                <span>Jednostki, przedmioty i pozostałe źródła poza magami.</span>
+                <h2>Bound Spells</h2>
             </div>
-            ${boundSpells.length ? `<div class="card-grid">${boundSpells.map(renderGameBoundCard).join("")}</div>` : `<div class="empty-panel">Brak niezależnych Bound Spells.</div>`}
+            ${boundSpells.length ? `<div class="card-grid">${boundSpells.map(renderGameBoundCard).join("")}</div>` : `<div class="empty-panel">Brak Bound Spells.</div>`}
         </article>
     `;
 }
@@ -948,21 +1004,24 @@ function renderGameSpellCard(mage, spell) {
         used: session.usedCards.includes(key),
         action: "toggle-used-card",
         cardKey: key,
-        casterLevel: mage.level
+        casterLevel: mage.level,
+        eager: true
     });
 }
 
-function renderGameBoundCard(boundSpell) {
+function renderGameBoundCard(entry) {
+    const boundSpell = entry.boundSpell || entry;
     const spell = spellsById.get(boundSpell.spellId);
     if (!spell) {
         return "";
     }
     const key = `bound:${boundSpell.id}`;
+    const owner = entry.ownerName ? `${entry.ownerName} · ` : "";
     return `
         <div>
             <div class="bound-card-meta">
                 <span class="chip bound bound-name" title="${escapeAttr(boundSpell.name || "Bound Spell")}">${escapeHtml(boundSpell.name || "Bound Spell")}</span>
-                <span class="bound-level">poziom ${boundSpell.level}</span>
+                <span class="bound-level">${escapeHtml(owner)}Lvl ${boundSpell.level}</span>
             </div>
             ${renderSpellCard(spell, {
                 flipped: session.usedCards.includes(key),
@@ -970,19 +1029,29 @@ function renderGameBoundCard(boundSpell) {
                 action: "toggle-used-card",
                 cardKey: key,
                 casterLevel: boundSpell.level,
-                casterKind: "bound"
+                casterKind: "bound",
+                eager: true
             })}
         </div>
     `;
 }
 
-async function toggleUsedCard(cardKey) {
-    const response = await api(`/api/sessions/${encodeURIComponent(session.id)}/used`, {
-        method: "POST",
-        body: JSON.stringify({key: cardKey})
-    });
-    applySessionResponse(response);
-    renderGame();
+async function toggleUsedCard(cardKey, button = null) {
+    if (button) {
+        button.disabled = true;
+    }
+    try {
+        const response = await api(`/api/sessions/${encodeURIComponent(session.id)}/used`, {
+            method: "POST",
+            body: JSON.stringify({key: cardKey})
+        });
+        applySessionResponse(response);
+        updateUsedCardButton(cardKey, button);
+    } finally {
+        if (button && document.body.contains(button)) {
+            button.disabled = false;
+        }
+    }
 }
 
 async function endTurn() {
@@ -991,13 +1060,51 @@ async function endTurn() {
     }
     const response = await api(`/api/sessions/${encodeURIComponent(session.id)}/end-turn`, {method: "POST"});
     applySessionResponse(response);
-    renderGame();
+    updateAllUsedCardButtons();
+}
+
+function updateUsedCardButton(cardKey, button = null) {
+    const target = button?.dataset.cardKey === cardKey
+        ? button
+        : Array.from(document.querySelectorAll('[data-action="toggle-used-card"][data-card-key]'))
+            .find((item) => item.dataset.cardKey === cardKey);
+    if (!target) {
+        renderGame();
+        return;
+    }
+    updateSpellButtonFace(target, session.usedCards.includes(cardKey), "used");
+}
+
+function updateAllUsedCardButtons() {
+    const buttons = document.querySelectorAll('[data-action="toggle-used-card"][data-card-key]');
+    if (!buttons.length && session.mode === "GAME") {
+        renderGame();
+        return;
+    }
+    buttons.forEach((button) => updateSpellButtonFace(button, session.usedCards.includes(button.dataset.cardKey), "used"));
+}
+
+function updateSpellButtonFace(button, flipped, stateClass) {
+    const spell = spellsById.get(button?.dataset.spellId);
+    if (!button || !spell) {
+        return;
+    }
+    queueSpellImagePreload(spell);
+    button.classList.toggle(stateClass, flipped);
+    const image = button.querySelector("img");
+    const nextUrl = flipped ? spell.backUrl : spell.frontUrl;
+    if (image && image.getAttribute("src") !== nextUrl) {
+        image.src = nextUrl;
+    }
 }
 
 function renderSpellCard(spell, options) {
+    queueSpellImagePreload(spell);
     const imageUrl = options.flipped ? spell.backUrl : spell.frontUrl;
     const casterKind = options.casterKind || "wizard";
     const actualValue = actualCastingValue(spell.castingValue, options.casterLevel, casterKind);
+    const loading = options.eager ? "eager" : "lazy";
+    const fetchPriority = options.eager ? "high" : "auto";
     const classes = ["spell-card"];
     if (options.selected) {
         classes.push("selected");
@@ -1013,7 +1120,7 @@ function renderSpellCard(spell, options) {
     return `
         <div class="spell-card-wrap">
             <button type="button" class="${classes.join(" ")}" data-action="${escapeAttr(options.action)}" data-spell-id="${escapeAttr(spell.id)}" ${extra}>
-                <img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(spell.spellName)}" loading="lazy">
+                <img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(spell.spellName)}" loading="${loading}" decoding="async" fetchpriority="${fetchPriority}">
                 <span class="spell-caption">
                     <strong>${escapeHtml(spell.spellName)}</strong>
                     <span>${escapeHtml(spell.type)} · ${escapeHtml(spell.castingValue)} · ${escapeHtml(spell.range)}</span>
@@ -1030,6 +1137,7 @@ function openCardPreview(spellId, casterLevel = 0, casterKind = "wizard") {
     if (!spell) {
         return;
     }
+    queueSpellImagePreload(spell);
     cardPreview = {spellId, casterLevel: Number(casterLevel || 0), casterKind: casterKind || "wizard"};
     renderCurrent();
 }
@@ -1054,7 +1162,7 @@ function renderCardPreviewModal() {
                     <button type="button" class="secondary" data-action="close-card-preview">Zamknij</button>
                 </div>
                 <div class="card-preview-frame">
-                    <img class="card-preview-image" src="${escapeAttr(spell.frontUrl)}" alt="${escapeAttr(spell.spellName)}">
+                    <img class="card-preview-image" src="${escapeAttr(spell.frontUrl)}" alt="${escapeAttr(spell.spellName)}" loading="eager" decoding="async" fetchpriority="high">
                 </div>
             </section>
         </div>
@@ -1085,13 +1193,10 @@ function renderMessages(messages, kind) {
     `;
 }
 
-function mageWarnings(mage, selectedCount = mage.spellIds.length) {
+function mageWarnings(mage) {
     const warnings = [];
     if (!mage.loreId) {
         warnings.push({message: "Ten mag nie ma wybranego Lore."});
-    }
-    if (selectedCount > mage.level) {
-        warnings.push({message: `Wybrano ${selectedCount} czarów, a standardowy limit poziomu ${mage.level} to ${mage.level}. Możesz zatwierdzić wyjątek.`});
     }
     return warnings;
 }
@@ -1132,12 +1237,12 @@ function factionSelect(side, selected) {
     `;
 }
 
-function casterPresetSelect(side) {
+function casterPresetSelect(side, selected = "", attrs = "") {
     const presets = casterPresetsForSide(side);
     return `
-        <select name="casterPresetId" data-change="add-caster-preset" data-side="${escapeAttr(normalizeSide(side))}">
-            <option value="">Własna nazwa</option>
-            ${presets.map((preset) => `<option value="${escapeAttr(preset.id)}">${escapeHtml(preset.name)}</option>`).join("")}
+        <select ${attrs} ${presets.length ? "" : "disabled"}>
+            <option value="">Wybierz postać</option>
+            ${presets.map((preset) => `<option value="${escapeAttr(preset.id)}" ${selected === preset.id ? "selected" : ""}>${escapeHtml(preset.name)}</option>`).join("")}
         </select>
     `;
 }
@@ -1224,6 +1329,11 @@ function boundSpellSourceForSide(side, sourceId) {
     return boundSpellSourcesForSide(side).find((source) => source.id === sourceId) || null;
 }
 
+function normalizeOwnerMageId(side, mageId) {
+    const mage = findMage(mageId);
+    return mage && normalizeSide(mage.side) === normalizeSide(side) ? mage.id : "";
+}
+
 function normalizeSide(side) {
     return String(side || "").toUpperCase() === "OPPONENT" ? "OPPONENT" : "PLAYER";
 }
@@ -1243,6 +1353,29 @@ function magesForSide(side) {
 
 function boundSpellsForSide(side) {
     return session.boundSpells.filter((boundSpell) => normalizeSide(boundSpell.side) === normalizeSide(side));
+}
+
+function boundSpellEntriesForSide(side) {
+    const normalizedSide = normalizeSide(side);
+    const entries = boundSpellsForSide(normalizedSide).map((boundSpell) => ({
+        boundSpell,
+        ownerMageId: "",
+        ownerName: ""
+    }));
+    for (const mage of magesForSide(normalizedSide)) {
+        for (const boundSpell of mage.boundSpells || []) {
+            entries.push({
+                boundSpell,
+                ownerMageId: mage.id,
+                ownerName: mage.name || "Mag"
+            });
+        }
+    }
+    return entries;
+}
+
+function hasGameContent() {
+    return session.mages.length > 0 || SIDES.some((side) => boundSpellEntriesForSide(side.id).length > 0);
 }
 
 function loreName(loreId) {

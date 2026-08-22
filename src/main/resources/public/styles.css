@@ -167,6 +167,56 @@ label {
     align-items: center;
 }
 
+.actions button {
+    white-space: nowrap;
+}
+
+.start-game-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.start-warning-icon {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    flex: 0 0 auto;
+    border: 1px solid #6f211c;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--red);
+    font-weight: 900;
+    line-height: 1;
+    cursor: help;
+}
+
+.start-warning-icon::after {
+    content: attr(aria-label);
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 30;
+    display: none;
+    width: min(280px, calc(100vw - 34px));
+    border: 1px solid #6f211c;
+    border-radius: 6px;
+    color: #5c1c18;
+    background: #ffe4df;
+    padding: 9px 10px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    line-height: 1.25;
+    box-shadow: var(--shadow);
+}
+
+.start-warning-icon:hover::after,
+.start-warning-icon:focus-visible::after {
+    display: block;
+}
+
 .page-title {
     display: grid;
     gap: 8px;
@@ -257,11 +307,15 @@ label {
 }
 
 .mage-add-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(170px, 1.4fr) 80px minmax(160px, 1fr) auto;
 }
 
 .mage-add-grid button {
     width: 100%;
+}
+
+.mage-add-grid .wide-field {
+    grid-column: 1 / -2;
 }
 
 .wide-field {
@@ -302,16 +356,36 @@ label {
     padding: 16px;
 }
 
+.mage-panel.needs-spells,
+.game-section.needs-spells {
+    border-color: #d6a34b;
+    box-shadow: 0 0 0 2px rgba(214, 163, 75, 0.24), var(--shadow);
+}
+
 .panel-head {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 12px;
     align-items: flex-start;
+    width: 100%;
+}
+
+.panel-head > .actions {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
 }
 
 .panel-title {
     display: grid;
     gap: 3px;
+    min-width: 0;
+}
+
+.mage-panel .panel-title h2,
+.game-section .panel-title h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .panel-title h2,
@@ -409,16 +483,21 @@ label {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
     gap: 14px;
+    align-items: start;
 }
 
 .spell-card-wrap {
     display: grid;
+    grid-template-rows: auto auto;
     gap: 8px;
     align-content: start;
+    min-width: 0;
+    height: 100%;
 }
 
 .spell-card {
     display: grid;
+    grid-template-rows: auto minmax(62px, auto);
     gap: 7px;
     width: 100%;
     border: 1px solid transparent;
@@ -454,6 +533,8 @@ label {
 .spell-caption {
     display: grid;
     gap: 2px;
+    min-width: 0;
+    min-height: 62px;
     color: var(--muted);
     font-size: 0.82rem;
 }
@@ -461,6 +542,14 @@ label {
 .spell-caption strong {
     color: var(--ink);
     font-size: 0.9rem;
+}
+
+.spell-caption strong,
+.spell-caption > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .actual-casting {
@@ -473,6 +562,7 @@ label {
     min-height: 34px;
     padding: 0 10px;
     font-size: 0.88rem;
+    white-space: nowrap;
 }
 
 .selection-toolbar,
@@ -563,6 +653,66 @@ label {
     gap: 10px;
 }
 
+.bound-modal .panel-title h2 {
+    white-space: nowrap;
+}
+
+.bound-modal {
+    width: min(1220px, calc(100vw - 20px));
+    max-height: calc(100vh - 20px);
+    overflow: hidden;
+    grid-template-rows: auto auto minmax(0, 1fr) auto;
+    gap: 10px;
+    padding: 14px;
+}
+
+.bound-modal .modal-grid {
+    grid-template-columns: minmax(180px, 1.4fr) 80px minmax(160px, 1fr);
+}
+
+.modal-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
+
+.bound-modal .modal-card-grid {
+    min-height: 0;
+    grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
+    gap: 10px;
+    align-content: start;
+}
+
+.bound-modal .spell-card-wrap {
+    gap: 6px;
+}
+
+.bound-modal .spell-card {
+    grid-template-rows: auto minmax(54px, auto);
+    gap: 5px;
+}
+
+.bound-modal .spell-card img {
+    height: clamp(118px, 22vh, 210px);
+    aspect-ratio: auto;
+    object-fit: contain;
+    box-shadow: none;
+}
+
+.bound-modal .spell-caption {
+    min-height: 54px;
+    gap: 1px;
+    font-size: 0.78rem;
+}
+
+.bound-modal .spell-caption strong {
+    font-size: 0.84rem;
+}
+
+.bound-modal .detail-button {
+    min-height: 32px;
+    padding: 0 8px;
+    font-size: 0.82rem;
+}
+
 .card-preview-modal {
     width: min(760px, calc(100vw - 28px));
     max-height: calc(100vh - 28px);
@@ -635,6 +785,14 @@ label {
         grid-template-columns: 1fr;
     }
 
+    .bound-modal .modal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mage-add-grid .wide-field {
+        grid-column: auto;
+    }
+
     .form-grid button {
         width: 100%;
     }
@@ -645,6 +803,74 @@ label {
 }
 
 @media (max-width: 480px) {
+    .modal-backdrop {
+        align-items: start;
+        padding: 10px;
+    }
+
+    .modal {
+        padding: 12px;
+    }
+
+    .bound-modal {
+        width: calc(100vw - 12px);
+        max-height: calc(100vh - 12px);
+        padding: 10px;
+    }
+
+    .bound-modal .panel-head {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .bound-modal .modal-grid {
+        grid-template-columns: minmax(0, 1fr) 64px;
+        gap: 8px;
+    }
+
+    .bound-modal .modal-grid label:nth-child(3) {
+        grid-column: 1 / -1;
+    }
+
+    .bound-modal .modal-card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .bound-modal .spell-card {
+        grid-template-rows: auto minmax(46px, auto);
+        gap: 4px;
+    }
+
+    .bound-modal .spell-card img {
+        height: clamp(84px, 13vh, 104px);
+    }
+
+    .bound-modal .spell-caption {
+        min-height: 42px;
+        font-size: 0.72rem;
+    }
+
+    .bound-modal .spell-caption strong {
+        font-size: 0.76rem;
+    }
+
+    .bound-modal .detail-button {
+        min-height: 28px;
+        padding: 0 4px;
+        font-size: 0.74rem;
+    }
+
+    .bound-modal > .actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    .bound-modal > .actions button {
+        min-width: 0;
+        flex: 0 1 auto;
+    }
+
     .home-panel {
         margin: 18px auto;
         padding: 18px;
@@ -658,5 +884,9 @@ label {
 
     .actions button {
         flex: 1 1 100%;
+    }
+
+    .modal-card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
