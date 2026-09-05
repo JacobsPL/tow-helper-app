@@ -385,6 +385,29 @@ class SessionServiceTest {
         return catalog.findLore(id).orElseThrow();
     }
 
+    @Test
+    void persistsBoundCommentsAndTreatsWhitespaceAsEmpty() {
+        GameSession session = service.createSession();
+        session.playerFactionId = "empire-of-man";
+        Mage mage = mage("Mag", 1, "battle_magic", List.of());
+        BoundSpell owned = new BoundSpell();
+        owned.comment = "  Przy generale  ";
+        mage.boundSpells.add(owned);
+        session.mages.add(mage);
+        BoundSpell standalone = new BoundSpell();
+        standalone.comment = " \t\n\u00a0\u2003 ";
+        session.boundSpells.add(standalone);
+        service.saveSession(session.id, session);
+        GameSession loaded = service.getSession(session.id);
+        assertThat(loaded.mages.get(0).boundSpells.get(0).comment).isEqualTo("Przy generale");
+        assertThat(loaded.boundSpells.get(0).comment).isEmpty();
+        loaded.boundSpells.get(0).comment = "Zapasowy pierścień";
+        loaded.mages.get(0).boundSpells.get(0).comment = null;
+        service.saveSession(session.id, loaded);
+        assertThat(service.getSession(session.id).boundSpells.get(0).comment).isEqualTo("Zapasowy pierścień");
+        assertThat(service.getSession(session.id).mages.get(0).boundSpells.get(0).comment).isEmpty();
+    }
+
     private Mage mage(String name, int level, String loreId, List<String> spells) {
         Mage mage = new Mage();
         mage.name = name;

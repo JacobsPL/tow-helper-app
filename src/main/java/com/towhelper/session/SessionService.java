@@ -240,6 +240,7 @@ public class SessionService {
         boundSpell.side = normalizeSide(boundSpell.side);
         boundSpell.sourceId = normalizeText(boundSpell.sourceId);
         boundSpell.name = normalizeText(boundSpell.name);
+        boundSpell.comment = boundSpell.comment == null ? "" : boundSpell.comment.replaceAll("(?U)^\\s+|\\s+$", "");
         boundSpell.level = clampLevel(boundSpell.level);
         boundSpell.loreId = normalizeText(boundSpell.loreId);
         boundSpell.spellId = normalizeText(boundSpell.spellId);

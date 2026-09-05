@@ -28,6 +28,12 @@ class ApiError extends Error {
 
 window.addEventListener("hashchange", route);
 
+app.addEventListener("input", (event) => {
+    if (event.target.matches("[data-bound-comment]") && boundEditor) {
+        boundEditor.draft.comment = event.target.value;
+    }
+});
+
 app.addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -941,13 +947,15 @@ function renderBoundModal() {
     return `
         <div class="modal-backdrop">
             <section class="modal bound-modal">
-                <div class="panel-head">
-                    <div class="panel-title">
-                        <h2>${boundEditor.boundId ? "Edytuj Bound Spell" : "Dodaj Bound Spell"}</h2>
+                <div class="bound-modal-head">
+                    <div class="panel-head">
+                        <div class="panel-title">
+                            <h2>${boundEditor.boundId ? "Edytuj Bound Spell" : "Dodaj Bound Spell"}</h2>
+                        </div>
+                        <button type="button" class="secondary" data-action="close-bound-editor">Zamknij</button>
                     </div>
-                    <button type="button" class="secondary" data-action="close-bound-editor">Zamknij</button>
+                    ${boundEditor.error ? renderMessages([{message: boundEditor.error}], "error") : ""}
                 </div>
-                ${boundEditor.error ? renderMessages([{message: boundEditor.error}], "error") : ""}
                 <div class="modal-grid">
                     <label>Źródło
                         ${boundSourceSelect(boundEditor.side, draft.sourceId || "")}
@@ -957,6 +965,9 @@ function renderBoundModal() {
                     </label>
                     <label>Lore
                         ${loreSelect("", draft.loreId, `data-change="bound-field" data-field="loreId"`, boundEditor.side, "bound")}
+                    </label>
+                    <label class="bound-comment-field">Komentarz (opcjonalny)
+                        <input type="text" data-bound-comment value="${escapeAttr(draft.comment || "")}" placeholder="Np. przedmiot niesiony przez generała">
                     </label>
                 </div>
                 <div class="card-grid modal-card-grid">
@@ -1082,6 +1093,7 @@ function renderGameBoundCard(entry) {
             <div class="bound-card-meta">
                 <span class="chip bound bound-name" title="${escapeAttr(boundSpell.name || "Bound Spell")}">${escapeHtml(boundSpell.name || "Bound Spell")}</span>
                 <span class="bound-level">${escapeHtml(owner)}Lvl ${boundSpell.level}</span>
+                ${boundSpell.comment?.trim() ? `<p class="bound-comment">${escapeHtml(boundSpell.comment.trim())}</p>` : ""}
             </div>
             ${renderSpellCard(spell, {
                 flipped: session.usedCards.includes(key),

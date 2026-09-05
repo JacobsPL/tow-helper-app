@@ -456,6 +456,18 @@ label {
     padding-left: 2px;
 }
 
+.bound-modal .modal-grid .bound-comment-field {
+    grid-column: 1 / -1;
+}
+
+.bound-comment {
+    margin: 3px 0;
+    font-size: 0.88rem;
+    color: var(--muted);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
 .bound-list {
     display: grid;
     gap: 9px;
@@ -617,6 +629,8 @@ label {
 }
 
 .signature-panel {
+    display: grid;
+    gap: 14px;
     margin-bottom: 18px;
     padding: 16px;
 }
@@ -668,6 +682,9 @@ label {
     display: grid;
     place-items: center;
     padding: 20px;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
     background: rgba(24, 18, 13, 0.55);
 }
 
@@ -696,11 +713,19 @@ label {
 
 .bound-modal {
     width: min(1220px, calc(100vw - 20px));
-    max-height: calc(100vh - 20px);
+    height: min(760px, calc(100vh - 20px));
+    height: min(760px, calc(100dvh - 20px));
+    max-height: none;
     overflow: hidden;
     grid-template-rows: auto auto minmax(0, 1fr) auto;
     gap: 10px;
     padding: 14px;
+}
+
+.bound-modal-head {
+    display: grid;
+    gap: 10px;
+    min-width: 0;
 }
 
 .bound-modal .modal-grid {
@@ -713,9 +738,20 @@ label {
 
 .bound-modal .modal-card-grid {
     min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     grid-template-columns: repeat(auto-fit, minmax(122px, 1fr));
     gap: 10px;
     align-content: start;
+    padding: 4px;
+}
+
+.bound-modal > .actions {
+    position: relative;
+    z-index: 2;
+    background: var(--paper);
 }
 
 .bound-modal .spell-card-wrap {
@@ -852,12 +888,19 @@ label {
 
     .bound-modal {
         width: calc(100vw - 12px);
-        max-height: calc(100vh - 12px);
+        height: calc(100vh - 12px);
+        height: calc(100dvh - 12px);
         padding: 10px;
     }
 
     .bound-modal .panel-head {
         grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .bound-modal .panel-title h2 {
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.1;
     }
 
     .bound-modal .modal-grid {
@@ -871,7 +914,8 @@ label {
 
     .bound-modal .modal-card-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 7px;
+        gap: 12px;
+        padding: 6px;
     }
 
     .bound-modal .spell-card {
@@ -906,7 +950,11 @@ label {
 
     .bound-modal > .actions button {
         min-width: 0;
+        min-height: 44px;
         flex: 0 1 auto;
+        padding: 6px 8px;
+        white-space: normal;
+        line-height: 1.1;
     }
 
     .home-panel {
@@ -926,5 +974,27 @@ label {
 
     .modal-card-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-height: 480px) {
+    .bound-modal {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .bound-modal > * + * {
+        margin-top: 10px;
+    }
+
+    .bound-modal .modal-card-grid {
+        overflow: visible;
+    }
+
+    .bound-modal > .actions {
+        position: sticky;
+        bottom: 0;
+        padding-top: 10px;
     }
 }
