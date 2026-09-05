@@ -598,8 +598,45 @@ label {
 
 .game-section {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
     gap: 14px;
     padding: 16px;
+}
+
+/* Nested grids must shrink to the side's width, including in iPad Safari. */
+.game-section > *,
+.card-grid,
+.card-grid > *,
+.spell-card {
+    min-width: 0;
+}
+
+.game-section .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(165px, 100%), 1fr));
+}
+
+.signature-panel {
+    margin-bottom: 18px;
+    padding: 16px;
+}
+
+.signature-panel h3,
+.signature-panel p {
+    margin: 0;
+}
+
+@media (min-width: 861px) and (max-width: 1180px) {
+    .mage-add-grid,
+    .mage-edit-grid {
+        grid-template-columns: minmax(0, 1fr) 80px;
+    }
+    .mage-edit-grid label:last-child {
+        grid-column: 1 / -1;
+    }
+    .mage-panel .panel-head {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 .spell-selection-bound-panel {
@@ -797,8 +834,9 @@ label {
         width: 100%;
     }
 
-    .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
+    .card-grid,
+    .game-section .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(138px, 100%), 1fr));
     }
 }
 

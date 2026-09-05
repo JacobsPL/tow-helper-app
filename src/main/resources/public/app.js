@@ -58,6 +58,12 @@ app.addEventListener("change", async (event) => {
     if (action.startsWith("bound-")) {
         updateBoundDraft(target);
     }
+    if (action === "signature-option" && selectionDraft) {
+        const mage = findMage(selectionDraft.mageId);
+        selectionDraft.signatureOptionId = target.value;
+        selectionDraft.spellIds = selectionDraft.spellIds.filter((id) => spellsById.get(id)?.loreId === mage.loreId);
+        renderSpellSelection(mage.id);
+    }
 });
 
 app.addEventListener("click", async (event) => {
@@ -77,6 +83,11 @@ app.addEventListener("click", async (event) => {
         openMageSpells(button.dataset.mageId);
     } else if (action === "toggle-select-spell") {
         toggleSelectedSpell(button.dataset.spellId, button);
+    } else if (action === "show-signatures") {
+        selectionDraft.showSignatures = !selectionDraft.showSignatures;
+        renderSpellSelection(selectionDraft.mageId);
+    } else if (action === "select-signature") {
+        selectArmySignature(button.dataset.spellId);
     } else if (action === "confirm-spell-selection") {
         await confirmSpellSelection();
     } else if (action === "cancel-spell-selection") {
@@ -550,7 +561,8 @@ async function updateMageField(target) {
     }
     if (target.dataset.change === "mage-lore") {
         mage.loreId = isLoreAvailableForSide(mage.side, target.value, "mage", mage.casterPresetId) ? target.value : "";
-        mage.spellIds = [];
+        const option = signatureOptionsForMage(mage).find((item) => item.id === mage.signatureOptionId);
+        mage.spellIds = mage.spellIds.filter((id) => option?.spellIds.includes(id));
     }
     await saveSession();
     renderConfig();
@@ -581,7 +593,7 @@ function renderSpellSelection(mageId) {
         return;
     }
     if (!selectionDraft || selectionDraft.mageId !== mageId) {
-        selectionDraft = {mageId, spellIds: [...mage.spellIds]};
+        selectionDraft = {mageId, spellIds: [...mage.spellIds], signatureOptionId: mage.signatureOptionId || ""};
     }
 
     const lore = loreById.get(mage.loreId);
@@ -599,10 +611,12 @@ function renderSpellSelection(mageId) {
                     <span data-selection-count>${selectedCount} wybranych</span>
                 </div>
                 <div class="actions">
+                    ${signatureOptionsForMage(mage).length ? `<button type="button" class="secondary" data-action="show-signatures" aria-expanded="${Boolean(selectionDraft.showSignatures)}">Dodaj sygnaturkę armijną</button>` : ""}
                     <button type="button" data-action="confirm-spell-selection">Zatwierdź wybór</button>
                 </div>
             </div>
             ${renderMessages(warnings, "warning")}
+            ${renderSignatureSelection(mage)}
             <div class="card-grid">
                 ${(lore?.spells || []).map((spell) => renderSpellCard(spell, {
                     flipped: selectionDraft.spellIds.includes(spell.id),
@@ -618,6 +632,49 @@ function renderSpellSelection(mageId) {
     `;
 }
 
+function signatureOptionsForMage(mage) {
+    return casterPresetForSide(mage.side, mage.casterPresetId)?.signatureOptions || [];
+}
+
+function renderSignatureSelection(mage) {
+    const options = signatureOptionsForMage(mage);
+    if (!options.length) return "";
+    const option = options.find((item) => item.id === selectionDraft.signatureOptionId) || (options.length === 1 ? options[0] : null);
+    const selected = selectionDraft.spellIds.map((id) => spellsById.get(id)).filter(Boolean);
+    const armySpells = selected.filter((spell) => spell.loreId !== mage.loreId);
+    if (!selectionDraft.showSignatures) {
+        return armySpells.length ? `<section class="signature-panel"><h3>Wybrane sygnaturki armijne</h3><div class="card-grid">${armySpells.map((spell) => renderSpellCard(spell, {
+            selected: true, flipped: true, action: "select-signature", casterLevel: mage.level, eager: true
+        })).join("")}</div><p class="hint">Dotknij wybranej sygnaturki, aby ją usunąć.</p></section>` : "";
+    }
+    return `<section class="form-panel signature-panel">
+        <h3>Sygnaturka armijna</h3>
+        ${options.length > 1 ? `<label>Zasada maga / znak boga<select data-change="signature-option">
+            <option value="">Wybierz zasadę z rozpiski</option>
+            ${options.map((item) => `<option value="${escapeAttr(item.id)}" ${option?.id === item.id ? "selected" : ""}>${escapeHtml(item.name)}</option>`).join("")}
+        </select></label>` : `<strong>${escapeHtml(option?.name || "")}</strong>`}
+        <div class="card-grid">${(option?.spellIds || []).map((id) => spellsById.get(id)).filter(Boolean).map((spell) => renderSpellCard(spell, {
+            selected: selectionDraft.spellIds.includes(spell.id), flipped: selectionDraft.spellIds.includes(spell.id), action: "select-signature", casterLevel: mage.level, eager: true
+        })).join("")}</div>
+        <p class="hint">Dotknij karty, aby dodać lub usunąć sygnaturkę. Zmiana zasady usuwa poprzednie sygnaturki armijne z tego wyboru.</p>
+    </section>`;
+}
+
+function selectArmySignature(spellId) {
+    const mage = findMage(selectionDraft?.mageId);
+    if (!mage) return;
+    const options = signatureOptionsForMage(mage);
+    const option = options.find((item) => item.id === selectionDraft.signatureOptionId) || (options.length === 1 ? options[0] : null);
+    if (!option?.spellIds.includes(spellId)) return;
+    selectionDraft.signatureOptionId = option.id;
+    if (selectionDraft.spellIds.includes(spellId)) {
+        selectionDraft.spellIds = selectionDraft.spellIds.filter((id) => id !== spellId);
+    } else {
+        selectionDraft.spellIds.push(spellId);
+    }
+    renderSpellSelection(mage.id);
+}
+
 function toggleSelectedSpell(spellId, button = null) {
     if (!selectionDraft) {
         return;
@@ -629,7 +686,9 @@ function toggleSelectedSpell(spellId, button = null) {
         selectionDraft.spellIds.push(spellId);
     }
     const isSelected = !wasSelected;
-    if (button) {
+    if (signatureOptionsForMage(findMage(selectionDraft.mageId)).length) {
+        renderSpellSelection(selectionDraft.mageId);
+    } else if (button) {
         updateSpellButtonFace(button, isSelected, "selected");
         updateSelectionCount();
     } else {
@@ -655,6 +714,7 @@ async function confirmSpellSelection() {
         return;
     }
     mage.spellIds = [...selectionDraft.spellIds];
+    mage.signatureOptionId = selectionDraft.signatureOptionId;
     selectionDraft = null;
     await saveSession();
     goToSession();

@@ -11,6 +11,7 @@ public class Mage {
     public String note = "";
     public int level = 1;
     public String loreId = "";
+    public String signatureOptionId = "";
     public List<String> spellIds = new ArrayList<>();
     public List<BoundSpell> boundSpells = new ArrayList<>();
 }

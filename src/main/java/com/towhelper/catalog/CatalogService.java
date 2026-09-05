@@ -211,7 +211,12 @@ public class CatalogService {
                         preset.id(),
                         preset.name(),
                         clampLevel(preset.defaultLevel()),
-                        knownLoreIds(preset.loreIds(), loresById)
+                        knownLoreIds(preset.loreIds(), loresById),
+                        listOrEmpty(preset.signatureOptions()).stream()
+                                .map(option -> new SignatureOption(option.id(), option.name(),
+                                        listOrEmpty(option.spellIds()).stream().filter(spellsById::containsKey).distinct().toList()))
+                                .filter(option -> !option.spellIds().isEmpty()).toList(),
+                        Math.max(1, preset.maxSignatureSpells())
                 ))
                 .filter(preset -> !preset.id().isBlank())
                 .filter(preset -> !preset.loreIds().isEmpty())

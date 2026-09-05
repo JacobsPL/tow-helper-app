@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T22:53:25.281Z",
+  "generatedAt": "2026-09-04T22:46:29.110Z",
   "source": {
     "oldWorldBuilder": "https://github.com/nthiebes/old-world-builder",
     "marchOfChaosPdf": "Warhammer The Old World - March of Chaos Arcane Journal.pdf"
@@ -36,7 +36,9 @@
             "elementalism",
             "illusion",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -93,7 +95,9 @@
             "elementalism",
             "illusion",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "empire-of-man-wizard-lord",
@@ -106,7 +110,9 @@
             "elementalism",
             "illusion",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -139,8 +145,6 @@
         "battle_magic",
         "elementalism",
         "illusion",
-        "lore_of_gork",
-        "lore_of_mork",
         "troll_magic",
         "waaagh_magic"
       ],
@@ -161,10 +165,20 @@
           "defaultLevel": 1,
           "loreIds": [
             "elementalism",
-            "lore_of_mork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_mork",
+              "name": "LORE OF MORK",
+              "spellIds": [
+                "lore_of_mork/01_morks_curse.png",
+                "lore_of_mork/02_itchy_nuisance.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-goblin-oddnob",
@@ -172,10 +186,20 @@
           "defaultLevel": 3,
           "loreIds": [
             "elementalism",
-            "lore_of_mork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_mork",
+              "name": "LORE OF MORK",
+              "spellIds": [
+                "lore_of_mork/01_morks_curse.png",
+                "lore_of_mork/02_itchy_nuisance.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-night-goblin-oddgit",
@@ -183,10 +207,20 @@
           "defaultLevel": 1,
           "loreIds": [
             "illusion",
-            "lore_of_mork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_mork",
+              "name": "LORE OF MORK",
+              "spellIds": [
+                "lore_of_mork/01_morks_curse.png",
+                "lore_of_mork/02_itchy_nuisance.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-night-goblin-oddnob",
@@ -194,10 +228,20 @@
           "defaultLevel": 3,
           "loreIds": [
             "illusion",
-            "lore_of_mork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_mork",
+              "name": "LORE OF MORK",
+              "spellIds": [
+                "lore_of_mork/01_morks_curse.png",
+                "lore_of_mork/02_itchy_nuisance.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-ogdruz-swampdigga",
@@ -206,7 +250,9 @@
           "loreIds": [
             "elementalism",
             "troll_magic"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-orc-weirdboy",
@@ -215,10 +261,20 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "lore_of_gork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_gork",
+              "name": "LORE OF GORK",
+              "spellIds": [
+                "lore_of_gork/01_brain_bursta.png",
+                "lore_of_gork/02_gaze_of_gork.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-orc-weirdnob",
@@ -227,10 +283,20 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "lore_of_gork",
             "troll_magic",
             "waaagh_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_gork",
+              "name": "LORE OF GORK",
+              "spellIds": [
+                "lore_of_gork/01_brain_bursta.png",
+                "lore_of_gork/02_gaze_of_gork.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "orc-and-goblin-tribes-troll-hag",
@@ -239,7 +305,9 @@
           "loreIds": [
             "battle_magic",
             "troll_magic"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -294,8 +362,6 @@
         "daemonology",
         "dark_magic",
         "elementalism",
-        "lore_of_beasts",
-        "lore_of_chaos",
         "lore_of_the_shadowlands"
       ],
       "boundLoreIds": [
@@ -316,9 +382,20 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "elementalism",
-            "lore_of_beasts"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_beasts",
+              "name": "LORE OF BEASTS",
+              "spellIds": [
+                "lore_of_beasts/01_viletide.png",
+                "lore_of_beasts/02_devolve.png",
+                "lore_of_beasts/03_mantle_of_ghorok.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-cult-magister",
@@ -326,9 +403,18 @@
           "defaultLevel": 1,
           "loreIds": [
             "daemonology",
-            "dark_magic",
-            "lore_of_chaos"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-chaos-chaos-undivided",
+              "name": "Mark of Chaos Undivided",
+              "spellIds": [
+                "lore_of_chaos/01_winds_of_chaos_mark_of_chaos_undivided.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-daemon-prince",
@@ -337,9 +423,39 @@
           "loreIds": [
             "battle_magic",
             "daemonology",
-            "dark_magic",
-            "lore_of_chaos"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-chaos-chaos-undivided",
+              "name": "Mark of Chaos Undivided",
+              "spellIds": [
+                "lore_of_chaos/01_winds_of_chaos_mark_of_chaos_undivided.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-nurgle",
+              "name": "Mark of Nurgle",
+              "spellIds": [
+                "lore_of_chaos/03_fleshy_abundance_mark_of_nurgle.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-slaanesh",
+              "name": "Mark of Slaanesh",
+              "spellIds": [
+                "lore_of_chaos/02_acquiescence_mark_of_slaanesh.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-tzeentch",
+              "name": "Mark of Tzeentch",
+              "spellIds": [
+                "lore_of_chaos/04_blue_fire_mark_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-exalted-sorcerer",
@@ -349,9 +465,39 @@
             "battle_magic",
             "daemonology",
             "dark_magic",
-            "lore_of_chaos",
             "lore_of_the_shadowlands"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-chaos-chaos-undivided",
+              "name": "Mark of Chaos Undivided",
+              "spellIds": [
+                "lore_of_chaos/01_winds_of_chaos_mark_of_chaos_undivided.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-nurgle",
+              "name": "Mark of Nurgle",
+              "spellIds": [
+                "lore_of_chaos/03_fleshy_abundance_mark_of_nurgle.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-slaanesh",
+              "name": "Mark of Slaanesh",
+              "spellIds": [
+                "lore_of_chaos/02_acquiescence_mark_of_slaanesh.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-tzeentch",
+              "name": "Mark of Tzeentch",
+              "spellIds": [
+                "lore_of_chaos/04_blue_fire_mark_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-galrauch",
@@ -359,7 +505,9 @@
           "defaultLevel": 4,
           "loreIds": [
             "dark_magic"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-great-bray-shaman",
@@ -368,9 +516,20 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "elementalism",
-            "lore_of_beasts"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_beasts",
+              "name": "LORE OF BEASTS",
+              "spellIds": [
+                "lore_of_beasts/01_viletide.png",
+                "lore_of_beasts/02_devolve.png",
+                "lore_of_beasts/03_mantle_of_ghorok.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "warriors-of-chaos-sorcerer-lord",
@@ -380,9 +539,39 @@
             "battle_magic",
             "daemonology",
             "dark_magic",
-            "lore_of_chaos",
             "lore_of_the_shadowlands"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-chaos-chaos-undivided",
+              "name": "Mark of Chaos Undivided",
+              "spellIds": [
+                "lore_of_chaos/01_winds_of_chaos_mark_of_chaos_undivided.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-nurgle",
+              "name": "Mark of Nurgle",
+              "spellIds": [
+                "lore_of_chaos/03_fleshy_abundance_mark_of_nurgle.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-slaanesh",
+              "name": "Mark of Slaanesh",
+              "spellIds": [
+                "lore_of_chaos/02_acquiescence_mark_of_slaanesh.png"
+              ]
+            },
+            {
+              "id": "lore-of-chaos-tzeentch",
+              "name": "Mark of Tzeentch",
+              "spellIds": [
+                "lore_of_chaos/04_blue_fire_mark_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -437,7 +626,6 @@
         "dark_magic",
         "elementalism",
         "illusion",
-        "lore_of_the_lady",
         "necromancy"
       ],
       "boundLoreIds": [
@@ -457,18 +645,40 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "illusion",
-            "lore_of_the_lady"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_the_lady",
+              "name": "LORE OF THE LADY",
+              "spellIds": [
+                "lore_of_the_lady/01_the_ladys_gift.png",
+                "lore_of_the_lady/02_burning_gaze.png",
+                "lore_of_the_lady/03_the_ladys_wrath.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "kingdom-of-bretonnia-lady-lisse-duachaard",
           "name": "Lady Élisse Duchaard",
           "defaultLevel": 3,
           "loreIds": [
-            "elementalism",
-            "lore_of_the_lady"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_the_lady",
+              "name": "LORE OF THE LADY",
+              "spellIds": [
+                "lore_of_the_lady/01_the_ladys_gift.png",
+                "lore_of_the_lady/02_burning_gaze.png",
+                "lore_of_the_lady/03_the_ladys_wrath.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 2
         },
         {
           "id": "kingdom-of-bretonnia-outcast-wizard",
@@ -481,7 +691,9 @@
             "elementalism",
             "illusion",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "kingdom-of-bretonnia-prophetess",
@@ -490,9 +702,20 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "illusion",
-            "lore_of_the_lady"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_the_lady",
+              "name": "LORE OF THE LADY",
+              "spellIds": [
+                "lore_of_the_lady/01_the_ladys_gift.png",
+                "lore_of_the_lady/02_burning_gaze.png",
+                "lore_of_the_lady/03_the_ladys_wrath.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -526,7 +749,6 @@
         "daemonology",
         "dark_magic",
         "elementalism",
-        "lore_of_beasts",
         "primal_magic"
       ],
       "boundLoreIds": [
@@ -546,9 +768,20 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "lore_of_beasts",
             "primal_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_beasts",
+              "name": "LORE OF BEASTS",
+              "spellIds": [
+                "lore_of_beasts/01_viletide.png",
+                "lore_of_beasts/02_devolve.png",
+                "lore_of_beasts/03_mantle_of_ghorok.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "beastmen-brayherds-doombull",
@@ -557,7 +790,9 @@
           "loreIds": [
             "battle_magic",
             "dark_magic"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "beastmen-brayherds-gorebull",
@@ -566,7 +801,9 @@
           "loreIds": [
             "battle_magic",
             "dark_magic"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "beastmen-brayherds-great-bray-shaman",
@@ -576,9 +813,20 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "lore_of_beasts",
             "primal_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_beasts",
+              "name": "LORE OF BEASTS",
+              "spellIds": [
+                "lore_of_beasts/01_viletide.png",
+                "lore_of_beasts/02_devolve.png",
+                "lore_of_beasts/03_mantle_of_ghorok.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "beastmen-brayherds-kralmaw",
@@ -586,9 +834,20 @@
           "defaultLevel": 4,
           "loreIds": [
             "dark_magic",
-            "lore_of_beasts",
             "primal_magic"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_beasts",
+              "name": "LORE OF BEASTS",
+              "spellIds": [
+                "lore_of_beasts/01_viletide.png",
+                "lore_of_beasts/02_devolve.png",
+                "lore_of_beasts/03_mantle_of_ghorok.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -628,7 +887,6 @@
       "id": "wood-elf-realms",
       "name": "Wood Elf Realms",
       "loreIds": [
-        "athel_loren",
         "battle_magic",
         "elementalism",
         "high_magic",
@@ -650,12 +908,23 @@
           "name": "Branchwraith",
           "defaultLevel": 1,
           "loreIds": [
-            "athel_loren",
             "battle_magic",
             "elementalism",
             "illusion",
             "lore_of_the_wilds"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "athel_loren",
+              "name": "ATHEL LOREN",
+              "spellIds": [
+                "athel_loren/01_tree_singing.png",
+                "athel_loren/02_forest_walker.png",
+                "athel_loren/03_flock_of_doom.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "wood-elf-realms-shadowdancer",
@@ -665,44 +934,79 @@
             "battle_magic",
             "illusion",
             "lore_of_the_wilds"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "wood-elf-realms-spellsinger",
           "name": "Spellsinger",
           "defaultLevel": 1,
           "loreIds": [
-            "athel_loren",
             "battle_magic",
             "elementalism",
             "high_magic",
             "illusion",
             "lore_of_the_wilds"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "athel_loren",
+              "name": "ATHEL LOREN",
+              "spellIds": [
+                "athel_loren/01_tree_singing.png",
+                "athel_loren/02_forest_walker.png",
+                "athel_loren/03_flock_of_doom.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "wood-elf-realms-spellweaver",
           "name": "Spellweaver",
           "defaultLevel": 3,
           "loreIds": [
-            "athel_loren",
             "battle_magic",
             "elementalism",
             "high_magic",
             "illusion",
             "lore_of_the_wilds"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "athel_loren",
+              "name": "ATHEL LOREN",
+              "spellIds": [
+                "athel_loren/01_tree_singing.png",
+                "athel_loren/02_forest_walker.png",
+                "athel_loren/03_flock_of_doom.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "wood-elf-realms-treeman-ancient",
           "name": "Treeman Ancient",
           "defaultLevel": 2,
           "loreIds": [
-            "athel_loren",
             "battle_magic",
             "elementalism",
             "lore_of_the_wilds"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "athel_loren",
+              "name": "ATHEL LOREN",
+              "spellIds": [
+                "athel_loren/01_tree_singing.png",
+                "athel_loren/02_forest_walker.png",
+                "athel_loren/03_flock_of_doom.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -755,7 +1059,6 @@
       "loreIds": [
         "elementalism",
         "illusion",
-        "lore_of_nehekhara",
         "necromancy"
       ],
       "boundLoreIds": [
@@ -775,9 +1078,20 @@
           "loreIds": [
             "elementalism",
             "illusion",
-            "lore_of_nehekhara",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_nehekhara",
+              "name": "LORE OF NEHEKHARA",
+              "spellIds": [
+                "lore_of_nehekhara/01_djafs_incantation_of_cursed_blades.png",
+                "lore_of_nehekhara/02_khsars_incantation_of_the_desert_wind.png",
+                "lore_of_nehekhara/03_usekhps_incantation_of_desiccation.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "tomb-kings-of-khemri-mortuary-priest",
@@ -786,18 +1100,40 @@
           "loreIds": [
             "elementalism",
             "illusion",
-            "lore_of_nehekhara",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_nehekhara",
+              "name": "LORE OF NEHEKHARA",
+              "spellIds": [
+                "lore_of_nehekhara/01_djafs_incantation_of_cursed_blades.png",
+                "lore_of_nehekhara/02_khsars_incantation_of_the_desert_wind.png",
+                "lore_of_nehekhara/03_usekhps_incantation_of_desiccation.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "tomb-kings-of-khemri-settra-the-imperishable-the-great-king-of-nehekhara",
           "name": "Settra the Imperishable",
           "defaultLevel": 1,
           "loreIds": [
-            "lore_of_nehekhara",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_nehekhara",
+              "name": "LORE OF NEHEKHARA",
+              "spellIds": [
+                "lore_of_nehekhara/01_djafs_incantation_of_cursed_blades.png",
+                "lore_of_nehekhara/02_khsars_incantation_of_the_desert_wind.png",
+                "lore_of_nehekhara/03_usekhps_incantation_of_desiccation.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "tomb-kings-of-khemri-tomb-king",
@@ -805,7 +1141,9 @@
           "defaultLevel": 1,
           "loreIds": [
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "tomb-kings-of-khemri-tomb-prince",
@@ -813,7 +1151,9 @@
           "defaultLevel": 1,
           "loreIds": [
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -857,8 +1197,7 @@
         "dark_magic",
         "elementalism",
         "high_magic",
-        "illusion",
-        "lore_of_saphery"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -877,9 +1216,20 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_saphery"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_saphery",
+              "name": "LORE OF SAPHERY",
+              "spellIds": [
+                "lore_of_saphery/01_hand_of_khaine.png",
+                "lore_of_saphery/02_courage_of_aenarion.png",
+                "lore_of_saphery/03_vauls_unmaking.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "high-elf-realms-dragon-mage",
@@ -887,9 +1237,20 @@
           "defaultLevel": 1,
           "loreIds": [
             "battle_magic",
-            "elementalism",
-            "lore_of_saphery"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_saphery",
+              "name": "LORE OF SAPHERY",
+              "spellIds": [
+                "lore_of_saphery/01_hand_of_khaine.png",
+                "lore_of_saphery/02_courage_of_aenarion.png",
+                "lore_of_saphery/03_vauls_unmaking.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "high-elf-realms-mage",
@@ -899,9 +1260,20 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_saphery"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_saphery",
+              "name": "LORE OF SAPHERY",
+              "spellIds": [
+                "lore_of_saphery/01_hand_of_khaine.png",
+                "lore_of_saphery/02_courage_of_aenarion.png",
+                "lore_of_saphery/03_vauls_unmaking.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "high-elf-realms-storm-weaver",
@@ -910,9 +1282,20 @@
           "loreIds": [
             "dark_magic",
             "elementalism",
-            "illusion",
-            "lore_of_saphery"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_saphery",
+              "name": "LORE OF SAPHERY",
+              "spellIds": [
+                "lore_of_saphery/01_hand_of_khaine.png",
+                "lore_of_saphery/02_courage_of_aenarion.png",
+                "lore_of_saphery/03_vauls_unmaking.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -956,8 +1339,7 @@
         "daemonology",
         "dark_magic",
         "elementalism",
-        "illusion",
-        "lore_of_naggaroth"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -977,9 +1359,19 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "illusion",
-            "lore_of_naggaroth"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_naggaroth",
+              "name": "LORE OF NAGGAROTH",
+              "spellIds": [
+                "lore_of_naggaroth/01_cursing_word.png",
+                "lore_of_naggaroth/02_black_horror.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "dark-elves-supreme-sorceress",
@@ -990,9 +1382,19 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "illusion",
-            "lore_of_naggaroth"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_naggaroth",
+              "name": "LORE OF NAGGAROTH",
+              "spellIds": [
+                "lore_of_naggaroth/01_cursing_word.png",
+                "lore_of_naggaroth/02_black_horror.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1037,8 +1439,7 @@
         "daemonology",
         "dark_magic",
         "elementalism",
-        "illusion",
-        "the_horned_rat"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -1058,9 +1459,20 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "illusion",
-            "the_horned_rat"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "the_horned_rat",
+              "name": "THE HORNED RAT",
+              "spellIds": [
+                "the_horned_rat/01_skitterleap.png",
+                "the_horned_rat/02_warp_lightning.png",
+                "the_horned_rat/03_cloud_of_corruption.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "skaven-plague-priest",
@@ -1069,9 +1481,20 @@
           "loreIds": [
             "battle_magic",
             "daemonology",
-            "dark_magic",
-            "the_horned_rat"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "the_horned_rat",
+              "name": "THE HORNED RAT",
+              "spellIds": [
+                "the_horned_rat/01_skitterleap.png",
+                "the_horned_rat/02_warp_lightning.png",
+                "the_horned_rat/03_cloud_of_corruption.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "skaven-warlock-engineer",
@@ -1079,9 +1502,20 @@
           "defaultLevel": 1,
           "loreIds": [
             "battle_magic",
-            "elementalism",
-            "the_horned_rat"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "the_horned_rat",
+              "name": "THE HORNED RAT",
+              "spellIds": [
+                "the_horned_rat/01_skitterleap.png",
+                "the_horned_rat/02_warp_lightning.png",
+                "the_horned_rat/03_cloud_of_corruption.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1114,7 +1548,6 @@
         "battle_magic",
         "dark_magic",
         "illusion",
-        "lore_of_undeath",
         "necromancy"
       ],
       "boundLoreIds": [
@@ -1132,9 +1565,20 @@
           "loreIds": [
             "dark_magic",
             "illusion",
-            "lore_of_undeath",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_undeath",
+              "name": "LORE OF UNDEATH",
+              "spellIds": [
+                "lore_of_undeath/01_vanhals_danse_macabre.png",
+                "lore_of_undeath/02_hellish_vigour.png",
+                "lore_of_undeath/03_raise_dead.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "vampire-counts-necromantic-acolyte",
@@ -1143,9 +1587,20 @@
           "loreIds": [
             "dark_magic",
             "illusion",
-            "lore_of_undeath",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_undeath",
+              "name": "LORE OF UNDEATH",
+              "spellIds": [
+                "lore_of_undeath/01_vanhals_danse_macabre.png",
+                "lore_of_undeath/02_hellish_vigour.png",
+                "lore_of_undeath/03_raise_dead.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "vampire-counts-strigoi-ghoul-king",
@@ -1154,9 +1609,20 @@
           "loreIds": [
             "battle_magic",
             "dark_magic",
-            "lore_of_undeath",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_undeath",
+              "name": "LORE OF UNDEATH",
+              "spellIds": [
+                "lore_of_undeath/01_vanhals_danse_macabre.png",
+                "lore_of_undeath/02_hellish_vigour.png",
+                "lore_of_undeath/03_raise_dead.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "vampire-counts-vampire-count",
@@ -1165,9 +1631,20 @@
           "loreIds": [
             "dark_magic",
             "illusion",
-            "lore_of_undeath",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_undeath",
+              "name": "LORE OF UNDEATH",
+              "spellIds": [
+                "lore_of_undeath/01_vanhals_danse_macabre.png",
+                "lore_of_undeath/02_hellish_vigour.png",
+                "lore_of_undeath/03_raise_dead.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "vampire-counts-vampire-thrall",
@@ -1176,9 +1653,20 @@
           "loreIds": [
             "dark_magic",
             "illusion",
-            "lore_of_undeath",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_undeath",
+              "name": "LORE OF UNDEATH",
+              "spellIds": [
+                "lore_of_undeath/01_vanhals_danse_macabre.png",
+                "lore_of_undeath/02_hellish_vigour.png",
+                "lore_of_undeath/03_raise_dead.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1212,8 +1700,7 @@
         "daemonology",
         "dark_magic",
         "elementalism",
-        "illusion",
-        "lore_of_daemons"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -1231,9 +1718,33 @@
           "loreIds": [
             "battle_magic",
             "daemonology",
-            "dark_magic",
-            "lore_of_daemons"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-nurgle",
+              "name": "Daemon of Nurgle",
+              "spellIds": [
+                "lore_of_daemons/01_plague_wind_daemons_of_nurgle.png"
+              ]
+            },
+            {
+              "id": "lore-of-daemons-slaanesh",
+              "name": "Daemon of Slaanesh",
+              "spellIds": [
+                "lore_of_daemons/02_cacophonic_hymn_daemons_of_slaanesh.png"
+              ]
+            },
+            {
+              "id": "lore-of-daemons-tzeentch",
+              "name": "Daemon of Tzeentch",
+              "spellIds": [
+                "lore_of_daemons/03_pink_fire_daemons_of_tzeentch.png",
+                "lore_of_daemons/04_gift_of_mutation_daemons_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-daemonic-herald-of-nurgle",
@@ -1242,9 +1753,18 @@
           "loreIds": [
             "battle_magic",
             "daemonology",
-            "dark_magic",
-            "lore_of_daemons"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-nurgle",
+              "name": "Daemon of Nurgle",
+              "spellIds": [
+                "lore_of_daemons/01_plague_wind_daemons_of_nurgle.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-daemonic-herald-of-slaanesh",
@@ -1253,9 +1773,18 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "illusion",
-            "lore_of_daemons"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-slaanesh",
+              "name": "Daemon of Slaanesh",
+              "spellIds": [
+                "lore_of_daemons/02_cacophonic_hymn_daemons_of_slaanesh.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-daemonic-herald-of-tzeentch",
@@ -1266,9 +1795,19 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "illusion",
-            "lore_of_daemons"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-tzeentch",
+              "name": "Daemon of Tzeentch",
+              "spellIds": [
+                "lore_of_daemons/03_pink_fire_daemons_of_tzeentch.png",
+                "lore_of_daemons/04_gift_of_mutation_daemons_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-great-unclean-one",
@@ -1277,9 +1816,18 @@
           "loreIds": [
             "battle_magic",
             "daemonology",
-            "dark_magic",
-            "lore_of_daemons"
-          ]
+            "dark_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-nurgle",
+              "name": "Daemon of Nurgle",
+              "spellIds": [
+                "lore_of_daemons/01_plague_wind_daemons_of_nurgle.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-keeper-of-secrets",
@@ -1288,9 +1836,18 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "illusion",
-            "lore_of_daemons"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-slaanesh",
+              "name": "Daemon of Slaanesh",
+              "spellIds": [
+                "lore_of_daemons/02_cacophonic_hymn_daemons_of_slaanesh.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "daemons-of-chaos-lord-of-change",
@@ -1301,9 +1858,19 @@
             "daemonology",
             "dark_magic",
             "elementalism",
-            "illusion",
-            "lore_of_daemons"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore-of-daemons-tzeentch",
+              "name": "Daemon of Tzeentch",
+              "spellIds": [
+                "lore_of_daemons/03_pink_fire_daemons_of_tzeentch.png",
+                "lore_of_daemons/04_gift_of_mutation_daemons_of_tzeentch.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1335,8 +1902,7 @@
       "loreIds": [
         "battle_magic",
         "elementalism",
-        "illusion",
-        "the_great_maw"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -1353,9 +1919,19 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "illusion",
-            "the_great_maw"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "the_great_maw",
+              "name": "THE GREAT MAW",
+              "spellIds": [
+                "the_great_maw/01_toothcracker.png",
+                "the_great_maw/02_trollguts.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "ogre-kingdoms-firebelly",
@@ -1364,7 +1940,9 @@
           "loreIds": [
             "battle_magic",
             "elementalism"
-          ]
+          ],
+          "signatureOptions": [],
+          "maxSignatureSpells": 1
         },
         {
           "id": "ogre-kingdoms-slaughtermaster",
@@ -1373,9 +1951,19 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "illusion",
-            "the_great_maw"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "the_great_maw",
+              "name": "THE GREAT MAW",
+              "spellIds": [
+                "the_great_maw/01_toothcracker.png",
+                "the_great_maw/02_trollguts.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1409,7 +1997,6 @@
         "elementalism",
         "high_magic",
         "illusion",
-        "lore_of_lustria",
         "necromancy"
       ],
       "boundLoreIds": [
@@ -1429,9 +2016,19 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "illusion",
-            "lore_of_lustria"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_lustria",
+              "name": "LORE OF LUSTRIA",
+              "spellIds": [
+                "lore_of_lustria/01_apotheosis.png",
+                "lore_of_lustria/02_monsoon.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "lizardmen-slann-mage-priest",
@@ -1442,9 +2039,19 @@
             "elementalism",
             "high_magic",
             "illusion",
-            "lore_of_lustria",
             "necromancy"
-          ]
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_lustria",
+              "name": "LORE OF LUSTRIA",
+              "spellIds": [
+                "lore_of_lustria/01_apotheosis.png",
+                "lore_of_lustria/02_monsoon.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1476,8 +2083,7 @@
       "loreIds": [
         "daemonology",
         "dark_magic",
-        "elementalism",
-        "lore_of_hashut"
+        "elementalism"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -1494,9 +2100,20 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "elementalism",
-            "lore_of_hashut"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_hashut",
+              "name": "LORE OF HASHUT",
+              "spellIds": [
+                "lore_of_hashut/01_storm_of_ash.png",
+                "lore_of_hashut/02_flames_of_hashut.png",
+                "lore_of_hashut/03_curse_of_hashut.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "chaos-dwarfs-sorcerer-prophet",
@@ -1505,9 +2122,20 @@
           "loreIds": [
             "daemonology",
             "dark_magic",
-            "elementalism",
-            "lore_of_hashut"
-          ]
+            "elementalism"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_hashut",
+              "name": "LORE OF HASHUT",
+              "spellIds": [
+                "lore_of_hashut/01_storm_of_ash.png",
+                "lore_of_hashut/02_flames_of_hashut.png",
+                "lore_of_hashut/03_curse_of_hashut.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [
@@ -1540,10 +2168,7 @@
         "battle_magic",
         "elementalism",
         "high_magic",
-        "illusion",
-        "lore_of_yang",
-        "lore_of_yin",
-        "miao_ying"
+        "illusion"
       ],
       "boundLoreIds": [
         "battle_magic",
@@ -1565,10 +2190,29 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_yang",
-            "lore_of_yin"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_yang",
+              "name": "LORE OF YANG",
+              "spellIds": [
+                "lore_of_yang/01_constellation_of_the_dragon.png",
+                "lore_of_yang/02_great_bastion.png",
+                "lore_of_yang/03_might_of_heaven_and_earth.png"
+              ]
+            },
+            {
+              "id": "lore_of_yin",
+              "name": "LORE OF YIN",
+              "spellIds": [
+                "lore_of_yin/01_spirits_of_wind_and_shadow.png",
+                "lore_of_yin/02_accursed_mirror.png",
+                "lore_of_yin/03_ancestral_warriors.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "grand-cathay-miao-ying",
@@ -1577,11 +2221,24 @@
           "loreIds": [
             "battle_magic",
             "elementalism",
-            "high_magic",
-            "lore_of_yang",
-            "lore_of_yin",
-            "miao_ying"
-          ]
+            "high_magic"
+          ],
+          "signatureOptions": [
+            {
+              "id": "mastery-of-the-storm-winds",
+              "name": "Mastery of the Storm Winds (Yang + Yin)",
+              "spellIds": [
+                "lore_of_yin/01_spirits_of_wind_and_shadow.png",
+                "lore_of_yin/02_accursed_mirror.png",
+                "lore_of_yin/03_ancestral_warriors.png",
+                "lore_of_yang/01_constellation_of_the_dragon.png",
+                "lore_of_yang/02_great_bastion.png",
+                "lore_of_yang/03_might_of_heaven_and_earth.png",
+                "miao_ying/01_the_storm_dragons_fury.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 2
         },
         {
           "id": "grand-cathay-shugengan",
@@ -1591,10 +2248,29 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_yang",
-            "lore_of_yin"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_yang",
+              "name": "LORE OF YANG",
+              "spellIds": [
+                "lore_of_yang/01_constellation_of_the_dragon.png",
+                "lore_of_yang/02_great_bastion.png",
+                "lore_of_yang/03_might_of_heaven_and_earth.png"
+              ]
+            },
+            {
+              "id": "lore_of_yin",
+              "name": "LORE OF YIN",
+              "spellIds": [
+                "lore_of_yin/01_spirits_of_wind_and_shadow.png",
+                "lore_of_yin/02_accursed_mirror.png",
+                "lore_of_yin/03_ancestral_warriors.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "grand-cathay-shugengan-lord",
@@ -1604,10 +2280,29 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_yang",
-            "lore_of_yin"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_yang",
+              "name": "LORE OF YANG",
+              "spellIds": [
+                "lore_of_yang/01_constellation_of_the_dragon.png",
+                "lore_of_yang/02_great_bastion.png",
+                "lore_of_yang/03_might_of_heaven_and_earth.png"
+              ]
+            },
+            {
+              "id": "lore_of_yin",
+              "name": "LORE OF YIN",
+              "spellIds": [
+                "lore_of_yin/01_spirits_of_wind_and_shadow.png",
+                "lore_of_yin/02_accursed_mirror.png",
+                "lore_of_yin/03_ancestral_warriors.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         },
         {
           "id": "grand-cathay-supreme-astromancer",
@@ -1617,10 +2312,29 @@
             "battle_magic",
             "elementalism",
             "high_magic",
-            "illusion",
-            "lore_of_yang",
-            "lore_of_yin"
-          ]
+            "illusion"
+          ],
+          "signatureOptions": [
+            {
+              "id": "lore_of_yang",
+              "name": "LORE OF YANG",
+              "spellIds": [
+                "lore_of_yang/01_constellation_of_the_dragon.png",
+                "lore_of_yang/02_great_bastion.png",
+                "lore_of_yang/03_might_of_heaven_and_earth.png"
+              ]
+            },
+            {
+              "id": "lore_of_yin",
+              "name": "LORE OF YIN",
+              "spellIds": [
+                "lore_of_yin/01_spirits_of_wind_and_shadow.png",
+                "lore_of_yin/02_accursed_mirror.png",
+                "lore_of_yin/03_ancestral_warriors.png"
+              ]
+            }
+          ],
+          "maxSignatureSpells": 1
         }
       ],
       "boundSpellSources": [

@@ -11,6 +11,7 @@ Local web helper for managing magic cards during Warhammer: The Old World games.
 - Mage setup with faction-based caster presets and lore filtering.
 - Bound Spells with a separate faction-specific lore pool.
 - Magic card selection and per-turn usage tracking.
+- Army signature replacement selection, including Chaos alignment and Miao Ying's two replacements.
 
 ## Run locally
 
@@ -33,3 +34,4 @@ http://localhost:7070/
 Magic card images live in `assets/magic_cards`.
 Faction magic access is generated into `src/main/resources/faction-magic-access.json`.
 The helper scripts in `scripts/` can be used to rebuild derived catalog data.
+The army signature rules audit and source links are in `research/army-signatures.md`.

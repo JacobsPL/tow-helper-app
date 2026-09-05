@@ -164,6 +164,52 @@ function knownAppLoreIds(owbLoreIds) {
   return [...new Set(owbLoreIds.map(toAppLoreId).filter((id) => appLoreIds.has(id)))].sort();
 }
 
+// These are replacement signature pools, not lores used for spell generation.
+// Audited against tow.whfb.app; see research/army-signatures.md.
+const signatureOnlyLoreIds = new Set([
+  "athel_loren", "lore_of_beasts", "lore_of_chaos", "lore_of_daemons",
+  "lore_of_gork", "lore_of_mork", "lore_of_hashut", "lore_of_lustria",
+  "lore_of_naggaroth", "lore_of_nehekhara", "lore_of_saphery",
+  "lore_of_the_lady", "lore_of_undeath", "the_great_maw", "the_horned_rat",
+  "lore_of_yang", "lore_of_yin", "miao_ying",
+]);
+
+function signatureOptions(unit, armyComposition, allLores) {
+  const pool = allLores.filter((id) => signatureOnlyLoreIds.has(id));
+  const cards = (loreIds, god = "") => spells.filter((spell) =>
+    loreIds.includes(spell.front_image.split("/")[0]) &&
+    (!god || spell.spell_name.toLowerCase().includes(god.toLowerCase()))
+  ).map((spell) => spell.front_image);
+  if (unit.id?.includes("miao-ying")) {
+    return [{id: "mastery-of-the-storm-winds", name: "Mastery of the Storm Winds (Yang + Yin)", spellIds: cards(pool)}];
+  }
+  return pool.flatMap((loreId) => {
+    if (loreId === "lore_of_chaos") {
+      const names = [];
+      const visit = (entity) => {
+        if (!isAvailableForComposition(entity, armyComposition)) return;
+        names.push(entity.name_en || "", ...specialRuleNames(entity, armyComposition));
+        childCollections(entity).forEach(({child}) => visit(child));
+      };
+      visit(unit);
+      const gods = ["Chaos Undivided", "Nurgle", "Slaanesh", "Tzeentch"]
+        .filter((god) => names.some((name) => name.includes(`Mark of ${god}`)));
+      return (gods.length ? gods : ["Chaos Undivided"]).map((god) => ({
+        id: stableId(loreId, god), name: `Mark of ${god}`, spellIds: cards([loreId], god),
+      }));
+    }
+    if (loreId === "lore_of_daemons") {
+      const rules = specialRuleNames(unit, armyComposition).join(", ");
+      const fixedGod = ["Nurgle", "Slaanesh", "Tzeentch"].find((god) => rules.includes(`Daemon of ${god}`));
+      return (fixedGod ? [fixedGod] : ["Nurgle", "Slaanesh", "Tzeentch"]).map((god) => ({
+        id: stableId(loreId, god), name: `Daemon of ${god}`, spellIds: cards([loreId], god),
+      }));
+    }
+    return [{id: loreId, name: spells.find((spell) => spell.front_image.startsWith(`${loreId}/`)).lore,
+      spellIds: cards([loreId])}];
+  });
+}
+
 function isAvailableForComposition(entity, armyComposition) {
   if (!entity?.armyComposition) {
     return true;
@@ -399,6 +445,9 @@ function mergeUniqueObjects(items, keyFunction) {
       result.set(key, {
         ...existing,
         loreIds: [...new Set([...(existing.loreIds || []), ...(item.loreIds || [])])].sort(),
+        ...(existing.signatureOptions ? {signatureOptions: [...new Map(
+          [...existing.signatureOptions, ...item.signatureOptions].map((option) => [option.id, option])
+        ).values()]} : {}),
       });
     }
   }
@@ -436,12 +485,16 @@ for (const army of gameSystem.armies) {
         const rules = specialRuleNames(unit, armyComposition);
 
         if (category === "characters" && isWizardCandidate(unit, appLores)) {
-          appLores.forEach((lore) => mageLoreIds.add(lore));
+          const mainLores = appLores.filter((id) => !signatureOnlyLoreIds.has(id));
+          mainLores.forEach((lore) => mageLoreIds.add(lore));
+          appLores.forEach((lore) => boundLoreIds.add(lore));
           casterPresets.push({
             id: stableId(army.id, unit.id || unit.name_en),
             name: unit.name_en.replace(/ *\{[^)]*\}/g, ""),
             defaultLevel: defaultWizardLevel(unit),
-            loreIds: appLores,
+            loreIds: mainLores,
+            signatureOptions: signatureOptions(unit, armyComposition, appLores),
+            maxSignatureSpells: unit.maxSignatureSpells || 1,
           });
         }
 

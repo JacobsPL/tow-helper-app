@@ -1,6 +1,7 @@
 package com.towhelper.session;
 
 import com.towhelper.catalog.CatalogService;
+import com.towhelper.catalog.SignatureOption;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -105,6 +106,7 @@ public class SessionService {
                                 + mage.level + " to " + mage.level + ". Możesz to zatwierdzić jako wyjątek."
                 ));
             }
+
         }
 
         for (BoundSpell boundSpell : allBoundSpells(session)) {
@@ -171,6 +173,9 @@ public class SessionService {
         for (Mage mage : session.mages) {
             sanitizeMage(session, mage);
         }
+        if ("GAME".equals(session.mode) && session.mages.stream().anyMatch(mage -> blank(mage.loreId))) {
+            session.mode = "CONFIG";
+        }
 
         session.boundSpells.removeIf(Objects::isNull);
         for (BoundSpell boundSpell : session.boundSpells) {
@@ -201,7 +206,20 @@ public class SessionService {
         if (mage.spellIds == null) {
             mage.spellIds = new ArrayList<>();
         }
-        mage.spellIds.removeIf(spellId -> !catalog.spellBelongsToLore(spellId, mage.loreId));
+        var preset = catalog.findCasterPreset(factionIdForSide(session, mage.side), mage.casterPresetId).orElse(null);
+        var options = preset == null ? List.<SignatureOption>of() : preset.signatureOptions();
+        mage.signatureOptionId = normalizeText(mage.signatureOptionId);
+        var signatureOption = options.stream().filter(option -> option.id().equals(mage.signatureOptionId)).findFirst()
+                .orElse(options.size() == 1 ? options.get(0) : null);
+        // Older saves could use an army signature pool as the primary lore.
+        // Keep its cards while asking the player to select a real primary lore.
+        if (signatureOption == null && blank(mage.loreId) && !mage.spellIds.isEmpty()) {
+            var matchingOptions = options.stream().filter(option -> option.spellIds().containsAll(mage.spellIds)).toList();
+            if (matchingOptions.size() == 1) signatureOption = matchingOptions.get(0);
+        }
+        mage.signatureOptionId = signatureOption == null ? "" : signatureOption.id();
+        var signatureSpells = signatureOption == null ? List.<String>of() : signatureOption.spellIds();
+        mage.spellIds.removeIf(spellId -> !catalog.spellBelongsToLore(spellId, mage.loreId) && !signatureSpells.contains(spellId));
         mage.spellIds = new ArrayList<>(new LinkedHashSet<>(mage.spellIds));
 
         if (mage.boundSpells == null) {
