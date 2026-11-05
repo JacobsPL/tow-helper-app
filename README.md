@@ -12,6 +12,7 @@ Local web helper for managing magic cards during Warhammer: The Old World games.
 - Bound Spells with a separate faction-specific lore pool.
 - Magic card selection and per-turn usage tracking.
 - Army signature replacement selection, including Chaos alignment and Miao Ying's two replacements.
+- In-game Template Hits Calculator for true 3-inch and 5-inch blast templates, including casualties in incomplete rear ranks.
 
 ## Run locally
 
@@ -27,6 +28,17 @@ Open:
 
 ```text
 http://localhost:7070/
+```
+
+During a game, use **Template Hits Calculator** in the top bar. Set files, ranks,
+living models and base dimensions, then drag the template to see full and partial
+coverage. Missing models are crossed out and do not count as hits. Calculator
+settings are kept per game in the current browser tab, including after a reload.
+
+Geometry tests (Node.js, no extra dependencies):
+
+```sh
+node --test src/test/js/template-calculator.test.mjs
 ```
 
 ## Data notes

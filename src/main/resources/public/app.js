@@ -1,4 +1,7 @@
+import {mountTemplateCalculator} from "./template-calculator.mjs?v=20261105";
+
 const app = document.getElementById("app");
+let cleanupTemplateCalculator = null;
 
 let catalog = null;
 let loreById = new Map();
@@ -18,6 +21,16 @@ const SIDES = [
     {id: "PLAYER", label: "Gracz"},
     {id: "OPPONENT", label: "Przeciwnik"}
 ];
+
+const LEGACY_FACTION_IDS = new Set([
+    "dark-elves",
+    "skaven",
+    "vampire-counts",
+    "daemons-of-chaos",
+    "ogre-kingdoms",
+    "lizardmen",
+    "chaos-dwarfs"
+]);
 
 class ApiError extends Error {
     constructor(errors) {
@@ -119,6 +132,10 @@ app.addEventListener("click", async (event) => {
         await resetSide(button.dataset.side);
     } else if (action === "start-game") {
         await startGame();
+    } else if (action === "open-template-calculator") {
+        window.location.hash = `#/session/${session.id}/template-calculator`;
+    } else if (action === "back-to-game") {
+        goToSession();
     } else if (action === "back-to-config") {
         session.mode = "CONFIG";
         session.usedCards = [];
@@ -146,6 +163,7 @@ async function init() {
 }
 
 async function route() {
+    clearTemplateCalculator();
     const parts = hashParts();
     if (parts[0] !== "session" || !parts[1]) {
         session = null;
@@ -169,7 +187,9 @@ async function route() {
     }
 
     selectionDraft = null;
-    if (session.mode === "GAME") {
+    if (session.mode === "GAME" && parts[2] === "template-calculator") {
+        renderTemplateCalculator();
+    } else if (session.mode === "GAME") {
         renderGame();
     } else {
         renderConfig();
@@ -328,6 +348,7 @@ function renderTopBar(label, actions = "") {
 }
 
 function renderConfig() {
+    clearTemplateCalculator();
     const canStartGame = hasGameContent();
     app.innerHTML = `
         ${renderTopBar("", `
@@ -1009,8 +1030,10 @@ async function startGame() {
 }
 
 function renderGame() {
+    clearTemplateCalculator();
     app.innerHTML = `
         ${renderTopBar("", `
+            <button type="button" class="secondary" data-action="open-template-calculator">Template Hits Calculator</button>
             <button type="button" class="secondary" data-action="back-to-config">Wybór magów</button>
             <button type="button" class="warning" data-action="end-turn">Zakończ turę</button>
         `)}
@@ -1021,6 +1044,28 @@ function renderGame() {
         </main>
         ${renderCardPreviewModal()}
     `;
+}
+
+function clearTemplateCalculator() {
+    cleanupTemplateCalculator?.();
+    cleanupTemplateCalculator = null;
+}
+
+function renderTemplateCalculator() {
+    clearTemplateCalculator();
+    app.innerHTML = `
+        ${renderTopBar("Template Hits Calculator", `
+            <button type="button" class="secondary" data-action="back-to-game">Wróć do gry</button>
+        `)}
+        <main class="page template-page">
+            <div class="page-title">
+                <h1>Template Hits Calculator</h1>
+                <p>Ustaw oddział, podaj liczbę żywych modeli i sprawdź pokrycie templatką 3″ lub 5″.</p>
+            </div>
+            <div id="template-calculator"></div>
+        </main>
+    `;
+    cleanupTemplateCalculator = mountTemplateCalculator(document.getElementById("template-calculator"), session.id);
 }
 
 function renderGameSide(side) {
@@ -1301,10 +1346,19 @@ function loreOptionsHtml(lores, selected, selectedLore = null) {
 }
 
 function factionSelect(side, selected) {
+    const factions = catalog.factions || [];
+    const groups = [
+        {label: "Frakcje główne", factions: factions.filter((faction) => !LEGACY_FACTION_IDS.has(faction.id))},
+        {label: "Legacy", factions: factions.filter((faction) => LEGACY_FACTION_IDS.has(faction.id))}
+    ];
     return `
         <select data-change="side-faction" data-side="${escapeAttr(normalizeSide(side))}">
             <option value="">Wybierz frakcję</option>
-            ${(catalog.factions || []).map((faction) => `<option value="${escapeAttr(faction.id)}" ${selected === faction.id ? "selected" : ""}>${escapeHtml(faction.name)}</option>`).join("")}
+            ${groups.filter((group) => group.factions.length).map((group) => `
+                <optgroup label="${escapeAttr(group.label)}">
+                    ${group.factions.map((faction) => `<option value="${escapeAttr(faction.id)}" ${selected === faction.id ? "selected" : ""}>${escapeHtml(faction.name)}</option>`).join("")}
+                </optgroup>
+            `).join("")}
         </select>
     `;
 }
@@ -1460,7 +1514,9 @@ function goToSession() {
 
 function renderCurrent() {
     const parts = hashParts();
-    if (parts[2] === "mage" && parts[3] && parts[4] === "spells") {
+    if (session.mode === "GAME" && parts[2] === "template-calculator") {
+        renderTemplateCalculator();
+    } else if (parts[2] === "mage" && parts[3] && parts[4] === "spells") {
         renderSpellSelection(parts[3]);
     } else if (session.mode === "GAME") {
         renderGame();
